@@ -1,17 +1,17 @@
-# BULWARK-Wallet
+# FUNDIN-Wallet
 
-![alt text](https://github.com/bulwark-crypto/Press-Pack/blob/master/Social%20Images/facebook_banner.png)
+![alt text](https://cdn.discordapp.com/attachments/515102729493020672/531339010065432631/logo-white.png)
 
-Welcome to the BULWARK mobile wallet for android!
+Welcome to the Fundin mobile wallet for android!
 
 
 This project contains several sub-projects:
 
 app: The Android app itself. This is probably what you're searching for.
 
-bwktrumj: Stratum protocol implementation.
+fdntrumj: Stratum protocol implementation.
 
-bulwark-core-0.14.3-12.1: bulwarkj.
+fundin-core-0.0.1: fundin.
 
 You can build all sub-projects at once using Gradle:
 
