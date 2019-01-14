@@ -42,7 +42,7 @@ import global.ContextWrapper;
 import global.WalletConfiguration;
 import wallet.WalletManager;
 
-import static global.BwktrumGlobalData.KAALI_TESTNET_SERVER;
+import static global.FdntrumGlobalData.KAALI_TESTNET_SERVER;
 
 public class BlockchainManager {
 

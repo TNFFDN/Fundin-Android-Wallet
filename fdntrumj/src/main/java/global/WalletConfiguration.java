@@ -4,7 +4,7 @@ import org.fundinj.core.Context;
 import org.fundinj.core.NetworkParameters;
 
 /**
- * Created by kaali on 6/4/17.
+ * Created by tnf on 1/14/19. on 6/4/17.
  */
 
 public interface WalletConfiguration {

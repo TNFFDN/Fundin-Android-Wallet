@@ -3,7 +3,7 @@ package wallet.exceptions;
 import org.fundinj.core.Coin;
 
 /**
- * Created by kaali on 8/9/17.
+ * Created by tnf on 1/14/19. on 8/9/17.
  */
 
 public class InsufficientInputsException extends Exception {

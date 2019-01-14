@@ -8,7 +8,7 @@ import java.util.List;
 import fdntrum.utility.TxHashHeightWrapper;
 
 /**
- * Created by kaali on 6/18/17.
+ * Created by tnf on 1/14/19. on 6/18/17.
  */
 
 public class AddressBalance implements Serializable{
