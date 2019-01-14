@@ -1,6 +1,6 @@
 # FUNDIN-Wallet
 
-![alt text](https://github.com/TNFFDN/Fundin-Android-Wallet/blob/master/banner/Feature%20Image.jpg)
+![alt text](https://github.com/TNFFDN/Fundin-Android-Wallet/blob/master/banner/Feature%20Image.png)
 
 Welcome to the Fundin mobile wallet for android!
 
