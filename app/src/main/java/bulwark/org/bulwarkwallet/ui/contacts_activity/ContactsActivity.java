@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.contacts_activity;
+package fundin.org.fundinwallet.ui.contacts_activity;
 
 import android.content.Intent;
 import android.os.Build;
@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
-import bulwark.org.bulwarkwallet.ui.address_add_activity.AddContactActivity;
-import bulwark.org.bulwarkwallet.ui.base.BaseDrawerActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.ListItemListeners;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
-import bulwark.org.bulwarkwallet.utils.NavigationUtils;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.ui.address_add_activity.AddContactActivity;
+import fundin.org.fundinwallet.ui.base.BaseDrawerActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
+import fundin.org.fundinwallet.ui.base.tools.adapter.ListItemListeners;
+import fundin.org.fundinwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.utils.NavigationUtils;
 
 /**
  * Created by Neoperol on 5/11/17.
@@ -91,7 +91,7 @@ public class ContactsActivity extends BaseDrawerActivity implements ListItemList
         executor.submit(new Runnable() {
             @Override
             public void run() {
-                addressLabels = bulwarkModule.getContacts();
+                addressLabels = fundinModule.getContacts();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -139,7 +139,7 @@ public class ContactsActivity extends BaseDrawerActivity implements ListItemList
         SimpleTwoButtonsDialog.SimpleTwoBtnsDialogListener listener = new SimpleTwoButtonsDialog.SimpleTwoBtnsDialogListener() {
             @Override
             public void onRightBtnClicked(SimpleTwoButtonsDialog dialog) {
-                bulwarkModule.deleteAddressLabel(data);
+                fundinModule.deleteAddressLabel(data);
                 load();
                 Toast.makeText(ContactsActivity.this,R.string.address_label_deleted,Toast.LENGTH_LONG).show();
                 dialog.dismiss();

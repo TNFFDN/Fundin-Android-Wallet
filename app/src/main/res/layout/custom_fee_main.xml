@@ -10,7 +10,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.CustomFeeFragment"
+        android:name="fundin.org.fundinwallet.ui.transaction_send_activity.custom.CustomFeeFragment"
         android:id="@+id/fragment_custom_fee"
         />
 

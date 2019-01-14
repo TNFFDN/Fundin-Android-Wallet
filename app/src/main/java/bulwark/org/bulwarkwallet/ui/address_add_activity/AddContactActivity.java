@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.address_add_activity;
+package fundin.org.fundinwallet.ui.address_add_activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,16 +14,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.bulwarkj.uri.BulwarkURI;
+import org.fundinj.uri.FundinURI;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
-import bulwark.org.bulwarkwallet.module.ContactAlreadyExistException;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.utils.scanner.ScanActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.module.ContactAlreadyExistException;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.utils.scanner.ScanActivity;
 
 import static android.Manifest.permission_group.CAMERA;
-import static bulwark.org.bulwarkwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
+import static fundin.org.fundinwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
 
 /**
  * Created by Neoperol on 6/8/17.
@@ -65,7 +65,7 @@ public class AddContactActivity extends BaseActivity implements View.OnClickList
             @Override
             public void afterTextChanged(Editable s) {
                 String temp = s.toString();
-                if(bulwarkModule.chechAddress(temp)){
+                if(fundinModule.chechAddress(temp)){
                     address = temp;
                     edit_address.setTextColor(Color.parseColor("#0098FF"));;
                 }else {
@@ -93,13 +93,13 @@ public class AddContactActivity extends BaseActivity implements View.OnClickList
                 if (address!=null) {
                     if (name.length() > 0 && address.length() > 0) {
                         try {
-                            if (!bulwarkModule.chechAddress(address)) {
+                            if (!fundinModule.chechAddress(address)) {
                                 Toast.makeText(this, R.string.invalid_input_address, Toast.LENGTH_LONG).show();
                                 return true;
                             }
                             AddressLabel addressLabel = new AddressLabel(name);
                             addressLabel.addAddress(address);
-                            bulwarkModule.saveContact(addressLabel);
+                            fundinModule.saveContact(addressLabel);
                             Toast.makeText(this, "AddressLabel saved", Toast.LENGTH_LONG).show();
                             onBackPressed();
                         } catch (ContactAlreadyExistException e) {
@@ -142,11 +142,11 @@ public class AddContactActivity extends BaseActivity implements View.OnClickList
                 try {
                     String address = data.getStringExtra(INTENT_EXTRA_RESULT);
                     String usedAddress;
-                    if (bulwarkModule.chechAddress(address)){
+                    if (fundinModule.chechAddress(address)){
                         usedAddress = address;
                     }else {
-                        BulwarkURI bulwarkUri = new BulwarkURI(address);
-                        usedAddress = bulwarkUri.getAddress().toBase58();
+                        FundinURI fundinUri = new FundinURI(address);
+                        usedAddress = fundinUri.getAddress().toBase58();
                     }
                     final String tempPubKey = usedAddress;
                     edit_address.setText(tempPubKey);

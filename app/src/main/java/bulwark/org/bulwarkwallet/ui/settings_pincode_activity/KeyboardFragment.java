@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.settings_pincode_activity;
+package fundin.org.fundinwallet.ui.settings_pincode_activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseFragment;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseFragment;
 
 /**
  * Created by kaali on 7/11/17.

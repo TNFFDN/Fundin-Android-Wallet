@@ -1,11 +1,11 @@
-package bulwark.org.bulwarkwallet.contacts;
+package fundin.org.fundinwallet.contacts;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import org.bulwarkj.core.Sha256Hash;
+import org.fundinj.core.Sha256Hash;
 import org.json.JSONArray;
 import org.json.JSONException;
 

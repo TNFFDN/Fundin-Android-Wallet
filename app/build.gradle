@@ -5,7 +5,7 @@ android {
     buildToolsVersion '26.0.2'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "bwk.prod.kaali"
+        applicationId "fdn.prod.tnf"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 16
@@ -72,7 +72,7 @@ dependencies {
     compile 'com.snappydb:snappydb-lib:0.5.2'
     compile 'ch.acra:acra:4.9.2'
     //compile 'com.bugsee:bugsee-android:+'
-    implementation project(':bwktrumj')
+    implementation project(':fdntrumj')
 }
 
 

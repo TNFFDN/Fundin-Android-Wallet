@@ -1,7 +1,7 @@
-### Bulwark wallet protocol
+### Fundin wallet protocol
 
 
-Bulwark server is based on electrum server. Tiene el mismo flujo.
+Fundin server is based on electrum server. Tiene el mismo flujo.
 
 Cada request tiene su propia respuesta del lado del servidor, incluyendo los request de suscripciones.
 

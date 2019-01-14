@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity;
+package fundin.org.fundinwallet.ui.transaction_send_activity;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.contacts.AddressLabel;
 
 public class MyFilterableAdapter extends BaseAdapter implements Filterable {
     private Context context;

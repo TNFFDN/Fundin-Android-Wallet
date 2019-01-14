@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.tutorial_activity;
+package fundin.org.fundinwallet.ui.tutorial_activity;
 
 
 import android.content.Context;
@@ -19,10 +19,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.pincode_activity.PincodeActivity;
-import bulwark.org.bulwarkwallet.ui.start_node_activity.StartNodeActivity;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.WalletActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.pincode_activity.PincodeActivity;
+import fundin.org.fundinwallet.ui.start_node_activity.StartNodeActivity;
+import fundin.org.fundinwallet.ui.wallet_activity.WalletActivity;
 
 /**
  * Created by Neoperol on 7/6/17.

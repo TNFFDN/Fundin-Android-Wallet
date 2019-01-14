@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.base;
+package fundin.org.fundinwallet.ui.base;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,25 +9,25 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 
-import bulwark.org.bulwarkwallet.BulwarkApplication;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkModule;
-import bulwark.org.bulwarkwallet.service.IntentsConstants;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTextDialog;
-import bulwark.org.bulwarkwallet.utils.DialogBuilder;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.FundinApplication;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinModule;
+import fundin.org.fundinwallet.service.IntentsConstants;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTextDialog;
+import fundin.org.fundinwallet.utils.DialogBuilder;
+import fundin.org.fundinwallet.utils.DialogsUtil;
 
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_STORED_BLOCKCHAIN_ERROR;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_TRUSTED_PEER_CONNECTION_FAIL;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_STORED_BLOCKCHAIN_ERROR;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_TRUSTED_PEER_CONNECTION_FAIL;
 
 /**
  * Created by kaali on 6/8/17.
  */
 
-public class BulwarkActivity extends AppCompatActivity {
+public class FundinActivity extends AppCompatActivity {
 
-    protected BulwarkApplication bulwarkApplication;
-    protected BulwarkModule bulwarkModule;
+    protected FundinApplication fundinApplication;
+    protected FundinModule fundinModule;
 
     protected LocalBroadcastManager localBroadcastManager;
     private static final IntentFilter intentFilter = new IntentFilter(ACTION_TRUSTED_PEER_CONNECTION_FAIL);
@@ -50,8 +50,8 @@ public class BulwarkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bulwarkApplication = BulwarkApplication.getInstance();
-        bulwarkModule = bulwarkApplication.getModule();
+        fundinApplication = FundinApplication.getInstance();
+        fundinModule = fundinApplication.getModule();
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
     }
 

@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet;
+package fundin.org.fundinwallet;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -15,7 +15,7 @@ import com.snappydb.SnappydbException;
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
-import org.bulwarkj.store.BlockStore;
+import org.fundinj.store.BlockStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,41 +41,41 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 import global.ContextWrapper;
 import global.WalletConfiguration;
 import global.utils.Io;
-import bwktrum.NetworkConf;
-import bwktrum.BwktrumPeerData;
-import bulwark.org.bulwarkwallet.contacts.ContactsStore;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
-import bulwark.org.bulwarkwallet.module.BulwarkModule;
-import bulwark.org.bulwarkwallet.module.BulwarkModuleImp;
-import bulwark.org.bulwarkwallet.module.WalletConfImp;
-import bulwark.org.bulwarkwallet.module.store.SnappyBlockchainStore;
-import bulwark.org.bulwarkwallet.rate.db.RateDb;
-import bulwark.org.bulwarkwallet.service.BulwarkWalletService;
-import bulwark.org.bulwarkwallet.utils.AppConf;
-import bulwark.org.bulwarkwallet.utils.CentralFormats;
-import bulwark.org.bulwarkwallet.utils.CrashReporter;
+import fdntrum.NetworkConf;
+import fdntrum.BwktrumPeerData;
+import fundin.org.fundinwallet.contacts.ContactsStore;
+import fundin.org.fundinwallet.module.FundinContext;
+import fundin.org.fundinwallet.module.FundinModule;
+import fundin.org.fundinwallet.module.FundinModuleImp;
+import fundin.org.fundinwallet.module.WalletConfImp;
+import fundin.org.fundinwallet.module.store.SnappyBlockchainStore;
+import fundin.org.fundinwallet.rate.db.RateDb;
+import fundin.org.fundinwallet.service.FundinWalletService;
+import fundin.org.fundinwallet.utils.AppConf;
+import fundin.org.fundinwallet.utils.CentralFormats;
+import fundin.org.fundinwallet.utils.CrashReporter;
 import store.AddressStore;
 
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_RESET_BLOCKCHAIN;
-import static bulwark.org.bulwarkwallet.utils.AndroidUtils.shareText;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_RESET_BLOCKCHAIN;
+import static fundin.org.fundinwallet.utils.AndroidUtils.shareText;
 
 /**
  * Created by mati on 18/04/17.
  */
 @ReportsCrashes(
-        mailTo = BulwarkContext.REPORT_EMAIL, // my email here
+        mailTo = FundinContext.REPORT_EMAIL, // my email here
         mode = ReportingInteractionMode.TOAST,
         resToastText = R.string.crash_toast_text)
-public class BulwarkApplication extends Application implements ContextWrapper {
+public class FundinApplication extends Application implements ContextWrapper {
 
     private static Logger log;
 
     /** Singleton */
-    private static BulwarkApplication instance;
+    private static FundinApplication instance;
     public static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
     private long lastTimeRequestBackup;
 
-    private BulwarkModule bulwarkModule;
+    private FundinModule fundinModule;
     private AppConf appConf;
     private NetworkConf networkConf;
 
@@ -84,7 +84,7 @@ public class BulwarkApplication extends Application implements ContextWrapper {
     private ActivityManager activityManager;
     private PackageInfo info;
 
-    public static BulwarkApplication getInstance() {
+    public static FundinApplication getInstance() {
         return instance;
     }
 
@@ -93,7 +93,7 @@ public class BulwarkApplication extends Application implements ContextWrapper {
         public void onCrashOcurred(Thread thread, Throwable throwable) {
             log.error("crash occured..");
             throwable.printStackTrace();
-            String authorities = "bulwark.org.bulwarkwallet.myfileprovider";
+            String authorities = "fundin.org.fundinwallet.myfileprovider";
             final File cacheDir = getCacheDir();
             // show error report dialog to send the crash
             final ArrayList<Uri> attachments = new ArrayList<Uri>();
@@ -123,7 +123,7 @@ public class BulwarkApplication extends Application implements ContextWrapper {
             } catch (final IOException x) {
                 log.info("problem writing attachment", x);
             }
-            shareText(BulwarkApplication.this,"Bulwark wallet crash", "Unexpected crash", attachments);
+            shareText(FundinApplication.this,"Fundin wallet crash", "Unexpected crash", attachments);
         }
     };
 
@@ -133,7 +133,7 @@ public class BulwarkApplication extends Application implements ContextWrapper {
         instance = this;
         try {
             initLogging();
-            log = LoggerFactory.getLogger(BulwarkApplication.class);
+            log = LoggerFactory.getLogger(FundinApplication.class);
             PackageManager manager = getPackageManager();
             info = manager.getPackageInfo(this.getPackageName(), 0);
             activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -150,21 +150,21 @@ public class BulwarkApplication extends Application implements ContextWrapper {
             networkConf = new NetworkConf();
             appConf = new AppConf(getSharedPreferences(AppConf.PREFERENCE_NAME, MODE_PRIVATE));
             centralFormats = new CentralFormats(appConf);
-            WalletConfiguration walletConfiguration = new WalletConfImp(getSharedPreferences("bulwark_wallet",MODE_PRIVATE));
+            WalletConfiguration walletConfiguration = new WalletConfImp(getSharedPreferences("fundin_wallet",MODE_PRIVATE));
             //todo: add this on the initial wizard..
             //walletConfiguration.saveTrustedNode(HardcodedConstants.TESTNET_HOST,0);
             //AddressStore addressStore = new SnappyStore(getDirPrivateMode("address_store").getAbsolutePath());
             ContactsStore contactsStore = new ContactsStore(this);
-            bulwarkModule = new BulwarkModuleImp(this, walletConfiguration,contactsStore,new RateDb(this));
-            bulwarkModule.start();
+            fundinModule = new FundinModuleImp(this, walletConfiguration,contactsStore,new RateDb(this));
+            fundinModule.start();
 
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void startBulwarkService() {
-        Intent intent = new Intent(this,BulwarkWalletService.class);
+    public void startFundinService() {
+        Intent intent = new Intent(this,FundinWalletService.class);
         startService(intent);
     }
 
@@ -215,8 +215,8 @@ public class BulwarkApplication extends Application implements ContextWrapper {
         log.setLevel(Level.INFO);
     }
 
-    public BulwarkModule getModule(){
-        return bulwarkModule;
+    public FundinModule getModule(){
+        return fundinModule;
     }
 
     public AppConf getAppConf(){
@@ -241,7 +241,7 @@ public class BulwarkApplication extends Application implements ContextWrapper {
     @Override
     public boolean isMemoryLow() {
         final int memoryClass = activityManager.getMemoryClass();
-        return memoryClass<=bulwarkModule.getConf().getMinMemoryNeeded();
+        return memoryClass<=fundinModule.getConf().getMinMemoryNeeded();
     }
 
     @Override
@@ -251,7 +251,7 @@ public class BulwarkApplication extends Application implements ContextWrapper {
 
     @Override
     public void stopBlockchain() {
-        Intent intent = new Intent(this,BulwarkWalletService.class);
+        Intent intent = new Intent(this,FundinWalletService.class);
         intent.setAction(ACTION_RESET_BLOCKCHAIN);
         startService(intent);
     }
@@ -266,7 +266,7 @@ public class BulwarkApplication extends Application implements ContextWrapper {
      */
     public void setTrustedServer(BwktrumPeerData trustedServer) {
         networkConf.setTrustedServer(trustedServer);
-        bulwarkModule.getConf().saveTrustedNode(trustedServer.getHost(),0);
+        fundinModule.getConf().saveTrustedNode(trustedServer.getHost(),0);
         appConf.saveTrustedNode(trustedServer);
     }
 

@@ -1,13 +1,13 @@
-package bulwark.org.bulwarkwallet.ui.wallet_activity;
+package fundin.org.fundinwallet.ui.wallet_activity;
 
-import org.bulwarkj.core.Coin;
-import org.bulwarkj.core.Sha256Hash;
-import org.bulwarkj.core.Transaction;
+import org.fundinj.core.Coin;
+import org.fundinj.core.Sha256Hash;
+import org.fundinj.core.Transaction;
 
 import java.io.Serializable;
 import java.util.Map;
 
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.contacts.AddressLabel;
 
 /**
  * Created by kaali on 6/29/17.

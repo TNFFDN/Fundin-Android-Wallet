@@ -1,10 +1,10 @@
-package bulwark.org.bulwarkwallet.ui.transaction_request_activity;
+package fundin.org.fundinwallet.ui.transaction_request_activity;
 
 import android.os.Bundle;
 import android.view.ViewGroup;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
 
 /**
  * Created by Neoperol on 5/11/17.

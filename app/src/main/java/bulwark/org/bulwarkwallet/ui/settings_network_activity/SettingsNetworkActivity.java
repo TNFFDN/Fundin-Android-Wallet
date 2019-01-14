@@ -1,11 +1,11 @@
-package bulwark.org.bulwarkwallet.ui.settings_network_activity;
+package fundin.org.fundinwallet.ui.settings_network_activity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
 
 /**
  * Created by Neoperol on 6/8/17.

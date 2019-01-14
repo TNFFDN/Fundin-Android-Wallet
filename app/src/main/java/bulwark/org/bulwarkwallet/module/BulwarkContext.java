@@ -1,12 +1,12 @@
-package bulwark.org.bulwarkwallet.module;
+package fundin.org.fundinwallet.module;
 
 import android.os.Environment;
 import android.text.format.DateUtils;
 
-import org.bulwarkj.core.Context;
-import org.bulwarkj.core.NetworkParameters;
-import org.bulwarkj.params.MainNetParams;
-import org.bulwarkj.params.TestNet3Params;
+import org.fundinj.core.Context;
+import org.fundinj.core.NetworkParameters;
+import org.fundinj.params.MainNetParams;
+import org.fundinj.params.TestNet3Params;
 
 import java.io.File;
 
@@ -14,11 +14,11 @@ import java.io.File;
  * Created by kaali on 6/4/17.
  */
 
-public class BulwarkContext {
+public class FundinContext {
 
     public static final boolean IS_TEST = false;
     public static final NetworkParameters NETWORK_PARAMETERS = IS_TEST? TestNet3Params.get():MainNetParams.get();
-    /** Bulwarkj global context. */
+    /** Fundinj global context. */
     public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
 
     public static final String DEFAULT_RATE_COIN = "USD";
@@ -26,7 +26,7 @@ public class BulwarkContext {
 
     public static final String ENABLE_BIP44_APP_VERSION = "1.03";
 
-    /** Bulwark wallet released time */
+    /** Fundin wallet released time */
     public static final long BULWARK_WALLET_APP_RELEASED_ON_PLAY_STORE_TIME = 1500940800;
 
     // report mail
@@ -53,7 +53,7 @@ public class BulwarkContext {
         /** Path to external storage */
         public static final File EXTERNAL_STORAGE_DIR = Environment.getExternalStorageDirectory();
         /** Filename of the manual wallet backup. */
-        public static final String EXTERNAL_WALLET_BACKUP = "bulwark-wallet-backup" +"_"+ FILENAME_NETWORK_SUFFIX;
+        public static final String EXTERNAL_WALLET_BACKUP = "fundin-wallet-backup" +"_"+ FILENAME_NETWORK_SUFFIX;
         /** Manual backups go here. */
         public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         public static final String getExternalWalletBackupFileName(String appName){

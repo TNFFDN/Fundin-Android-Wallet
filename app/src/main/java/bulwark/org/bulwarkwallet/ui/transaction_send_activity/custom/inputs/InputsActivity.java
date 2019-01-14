@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.inputs;
+package fundin.org.fundinwallet.ui.transaction_send_activity.custom.inputs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.bulwarkj.core.Coin;
+import org.fundinj.core.Coin;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
 
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.SendActivity.INTENT_EXTRA_TOTAL_AMOUNT;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.SendActivity.INTENT_EXTRA_TOTAL_AMOUNT;
 
 /**
  * Created by kaali on 8/4/17.

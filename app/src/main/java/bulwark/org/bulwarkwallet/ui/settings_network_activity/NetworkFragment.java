@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.settings_network_activity;
+package fundin.org.fundinwallet.ui.settings_network_activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.bulwarkj.core.Peer;
+import org.fundinj.core.Peer;
 
 import java.util.List;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseRecyclerFragment;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseRecyclerFragment;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
 
 /**
  * Created by kaali on 7/2/17.
@@ -30,7 +30,7 @@ public class NetworkFragment extends BaseRecyclerFragment<Peer> {
 
     @Override
     protected List<Peer> onLoading() {
-        return bulwarkModule.listConnectedPeers();
+        return fundinModule.listConnectedPeers();
     }
 
     @Override

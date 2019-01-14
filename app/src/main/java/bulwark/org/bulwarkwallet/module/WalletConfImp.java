@@ -1,21 +1,21 @@
-package bulwark.org.bulwarkwallet.module;
+package fundin.org.fundinwallet.module;
 
 import android.content.SharedPreferences;
 
-import org.bulwarkj.core.Context;
-import org.bulwarkj.core.NetworkParameters;
+import org.fundinj.core.Context;
+import org.fundinj.core.NetworkParameters;
 
 import global.WalletConfiguration;
-import bulwark.org.bulwarkwallet.utils.Configurations;
+import fundin.org.fundinwallet.utils.Configurations;
 
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.CONTEXT;
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.Files.BLOCKCHAIN_FILENAME;
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.Files.CHECKPOINTS_FILENAME;
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.Files.WALLET_FILENAME_PROTOBUF;
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.Files.WALLET_KEY_BACKUP_PROTOBUF;
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.NETWORK_PARAMETERS;
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.PEER_DISCOVERY_TIMEOUT_MS;
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.PEER_TIMEOUT_MS;
+import static fundin.org.fundinwallet.module.FundinContext.CONTEXT;
+import static fundin.org.fundinwallet.module.FundinContext.Files.BLOCKCHAIN_FILENAME;
+import static fundin.org.fundinwallet.module.FundinContext.Files.CHECKPOINTS_FILENAME;
+import static fundin.org.fundinwallet.module.FundinContext.Files.WALLET_FILENAME_PROTOBUF;
+import static fundin.org.fundinwallet.module.FundinContext.Files.WALLET_KEY_BACKUP_PROTOBUF;
+import static fundin.org.fundinwallet.module.FundinContext.NETWORK_PARAMETERS;
+import static fundin.org.fundinwallet.module.FundinContext.PEER_DISCOVERY_TIMEOUT_MS;
+import static fundin.org.fundinwallet.module.FundinContext.PEER_TIMEOUT_MS;
 
 /**
  * Created by kaali on 6/4/17.
@@ -52,12 +52,12 @@ public class WalletConfImp extends Configurations implements WalletConfiguration
 
     @Override
     public int getTrustedNodePort() {
-        return BulwarkContext.NETWORK_PARAMETERS.getPort();
+        return FundinContext.NETWORK_PARAMETERS.getPort();
     }
 
     @Override
     public String getMnemonicFilename() {
-        return BulwarkContext.Files.BIP39_WORDLIST_FILENAME;
+        return FundinContext.Files.BIP39_WORDLIST_FILENAME;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class WalletConfImp extends Configurations implements WalletConfiguration
 
     @Override
     public NetworkParameters getNetworkParams() {
-        return BulwarkContext.NETWORK_PARAMETERS;
+        return FundinContext.NETWORK_PARAMETERS;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class WalletConfImp extends Configurations implements WalletConfiguration
 
     @Override
     public long getWalletAutosaveDelayMs() {
-        return BulwarkContext.Files.WALLET_AUTOSAVE_DELAY_MS;
+        return FundinContext.Files.WALLET_AUTOSAVE_DELAY_MS;
     }
 
     @Override
@@ -107,17 +107,17 @@ public class WalletConfImp extends Configurations implements WalletConfiguration
 
     @Override
     public int getMinMemoryNeeded() {
-        return BulwarkContext.MEMORY_CLASS_LOWEND;
+        return FundinContext.MEMORY_CLASS_LOWEND;
     }
 
     @Override
     public long getBackupMaxChars() {
-        return BulwarkContext.BACKUP_MAX_CHARS;
+        return FundinContext.BACKUP_MAX_CHARS;
     }
 
     @Override
     public boolean isTest() {
-        return BulwarkContext.IS_TEST;
+        return FundinContext.IS_TEST;
     }
 
     @Override

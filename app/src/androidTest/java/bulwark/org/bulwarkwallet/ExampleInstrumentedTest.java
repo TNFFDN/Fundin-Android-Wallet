@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet;
+package fundin.org.fundinwallet;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("bulwark.org.bulwarkwallet", appContext.getPackageName());
+        assertEquals("fundin.org.fundinwallet", appContext.getPackageName());
     }
 }

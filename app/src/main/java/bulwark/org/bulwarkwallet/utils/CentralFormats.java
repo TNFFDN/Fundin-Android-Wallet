@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.utils;
+package fundin.org.fundinwallet.utils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;

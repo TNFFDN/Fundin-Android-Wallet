@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.db;
+package fundin.org.fundinwallet.db;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -7,7 +7,7 @@ import com.snappydb.SnappydbException;
 
 import org.junit.Test;
 
-import bulwark.org.bulwarkwallet.module.store.SnappyStore;
+import fundin.org.fundinwallet.module.store.SnappyStore;
 import store.AddressNotFoundException;
 import store.AddressStore;
 import store.CantInsertAddressException;

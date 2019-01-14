@@ -1,11 +1,11 @@
-package bulwark.org.bulwarkwallet.ui.contacts_activity;
+package fundin.org.fundinwallet.ui.contacts_activity;
 
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
 
 /**
  * Created by Neoperol on 5/18/17.

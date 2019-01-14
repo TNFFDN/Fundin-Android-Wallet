@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.rate.db;
+package fundin.org.fundinwallet.rate.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.math.BigDecimal;
 
-import bulwark.org.bulwarkwallet.contacts.AbstractSqliteDb;
+import fundin.org.fundinwallet.contacts.AbstractSqliteDb;
 
 /**
  * Created by kaali on 7/5/17.
  */
 
-public class RateDb extends AbstractSqliteDb<BulwarkRate> {
+public class RateDb extends AbstractSqliteDb<FundinRate> {
 
 
     private static final String DATABASE_NAME = "Rates";
@@ -64,7 +64,7 @@ public class RateDb extends AbstractSqliteDb<BulwarkRate> {
     }
 
     @Override
-    protected ContentValues buildContent(BulwarkRate obj) {
+    protected ContentValues buildContent(FundinRate obj) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_COIN,obj.getCoin());
         contentValues.put(KEY_VALUE,obj.getValue().toEngineeringString());
@@ -74,24 +74,24 @@ public class RateDb extends AbstractSqliteDb<BulwarkRate> {
     }
 
     @Override
-    protected BulwarkRate buildFrom(Cursor cursor) {
+    protected FundinRate buildFrom(Cursor cursor) {
         String coin = cursor.getString(KEY_POS_COIN);
         BigDecimal value = new BigDecimal(cursor.getString(KEY_POS_VALUE));
         long timestap = cursor.getLong(KEY_POS_TIMESTAMP);
         String link = cursor.getString(KEY_POS_LINK);
-        return new BulwarkRate(coin,value,timestap,link);
+        return new FundinRate(coin,value,timestap,link);
     }
 
-    public BulwarkRate getRate(String coin){
+    public FundinRate getRate(String coin){
         return get(KEY_COIN,coin);
     }
 
 
-    public void insertOrUpdateIfExist(BulwarkRate bulwarkRate) {
-        if (getRate(bulwarkRate.getCoin())==null){
-            insert(bulwarkRate);
+    public void insertOrUpdateIfExist(FundinRate fundinRate) {
+        if (getRate(fundinRate.getCoin())==null){
+            insert(fundinRate);
         }else {
-            updateByKey(KEY_COIN,bulwarkRate.getCoin(),bulwarkRate);
+            updateByKey(KEY_COIN,fundinRate.getCoin(),fundinRate);
         }
     }
 }

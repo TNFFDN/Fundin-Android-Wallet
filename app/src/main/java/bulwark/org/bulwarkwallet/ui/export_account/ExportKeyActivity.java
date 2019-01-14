@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.export_account;
+package fundin.org.fundinwallet.ui.export_account;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -13,16 +13,16 @@ import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 
-import org.bulwarkj.crypto.DeterministicKey;
+import org.fundinj.crypto.DeterministicKey;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.utils.AndroidUtils;
-import bulwark.org.bulwarkwallet.utils.CrashReporter;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinContext;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.utils.AndroidUtils;
+import fundin.org.fundinwallet.utils.CrashReporter;
 
 import static android.graphics.Color.WHITE;
-import static bulwark.org.bulwarkwallet.utils.QrUtils.encodeAsBitmap;
+import static fundin.org.fundinwallet.utils.QrUtils.encodeAsBitmap;
 
 /**
  * Created by kaali on 8/29/17.
@@ -52,15 +52,15 @@ public class ExportKeyActivity extends BaseActivity implements View.OnClickListe
             initValues();
         }catch (Exception e){
             e.printStackTrace();
-            CrashReporter.saveBackgroundTrace(e,bulwarkApplication.getPackageInfo());
+            CrashReporter.saveBackgroundTrace(e,fundinApplication.getPackageInfo());
             Toast.makeText(this,R.string.unknown_error_message,Toast.LENGTH_LONG).show();
             onBackPressed();
         }
     }
 
     private void initValues() throws WriterException {
-        DeterministicKey deterministicKey = bulwarkModule.getWatchingKey();
-        xpubKey = deterministicKey.serializePubB58(BulwarkContext.NETWORK_PARAMETERS);
+        DeterministicKey deterministicKey = fundinModule.getWatchingKey();
+        xpubKey = deterministicKey.serializePubB58(FundinContext.NETWORK_PARAMETERS);
         txt_title.setText(R.string.public_key);
         txt_key.setText(xpubKey);
         txt_key.setOnClickListener(this);

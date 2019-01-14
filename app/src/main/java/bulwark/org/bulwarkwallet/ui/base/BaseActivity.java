@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.base;
+package fundin.org.fundinwallet.ui.base;
 
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -11,13 +11,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import bulwark.org.bulwarkwallet.R;
+import fundin.org.fundinwallet.R;
 
 /**
  * Created by mati on 18/04/17.
  */
 
-public abstract class BaseActivity extends BulwarkActivity {
+public abstract class BaseActivity extends FundinActivity {
 
     protected Toolbar toolbar;
     protected FrameLayout childContainer;

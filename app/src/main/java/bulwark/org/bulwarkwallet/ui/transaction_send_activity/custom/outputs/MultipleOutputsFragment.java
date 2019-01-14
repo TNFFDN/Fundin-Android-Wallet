@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs;
+package fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,22 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import org.bulwarkj.core.Coin;
-import org.bulwarkj.uri.BulwarkURI;
+import org.fundinj.core.Coin;
+import org.fundinj.uri.FundinURI;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
-import bulwark.org.bulwarkwallet.ui.base.BaseRecyclerFragment;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
-import bulwark.org.bulwarkwallet.utils.scanner.ScanActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.ui.base.BaseRecyclerFragment;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
+import fundin.org.fundinwallet.utils.scanner.ScanActivity;
 
 import static android.Manifest.permission_group.CAMERA;
 import static android.app.Activity.RESULT_OK;
-import static bulwark.org.bulwarkwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
+import static fundin.org.fundinwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
 
 /**
  * Created by kaali on 8/4/17.
@@ -117,7 +117,7 @@ public class MultipleOutputsFragment extends BaseRecyclerFragment<OutputWrapper>
                 });
                 if (data.getAddress()!=null){
                     holder.edit_address.setText(data.getAddress());
-                    if (!bulwarkModule.chechAddress(data.getAddress())) {
+                    if (!fundinModule.chechAddress(data.getAddress())) {
                         holder.edit_address.setTextColor(Color.RED);
                     } else {
                         holder.edit_address.setTextColor(Color.parseColor("#4F4F4F"));
@@ -151,12 +151,12 @@ public class MultipleOutputsFragment extends BaseRecyclerFragment<OutputWrapper>
                         if (s.length()>0){
                             if (holder.edit_address!=null) {
                                 String address = s.toString();
-                                if (!bulwarkModule.chechAddress(address)) {
+                                if (!fundinModule.chechAddress(address)) {
                                     holder.edit_address.setTextColor(Color.RED);
                                 } else {
                                     holder.edit_address.setTextColor(Color.parseColor("#4F4F4F"));
                                     // check if there is a label for this address
-                                    AddressLabel addressLabel = bulwarkModule.getAddressLabel(address);
+                                    AddressLabel addressLabel = fundinModule.getAddressLabel(address);
                                     if (addressLabel!=null){
                                         holder.edit_address_label.setText(addressLabel.getName());
                                     }
@@ -256,7 +256,7 @@ public class MultipleOutputsFragment extends BaseRecyclerFragment<OutputWrapper>
         Coin amount = Coin.parseCoin(amountStr);
         String addressLabel = outputWrapper.getAddressLabel();
 
-        if (address==null || !bulwarkModule.chechAddress(address)){
+        if (address==null || !fundinModule.chechAddress(address)){
             // todo: mejorar esto
             Toast.makeText(getActivity(),R.string.invalid_input_address,Toast.LENGTH_LONG).show();
             return;
@@ -278,11 +278,11 @@ public class MultipleOutputsFragment extends BaseRecyclerFragment<OutputWrapper>
                     String address = "";
                     address = data.getStringExtra(INTENT_EXTRA_RESULT);
                     String usedAddress;
-                    if (bulwarkModule.chechAddress(address)){
+                    if (fundinModule.chechAddress(address)){
                         usedAddress = address;
                     }else {
-                        BulwarkURI bulwarkUri = new BulwarkURI(address);
-                        usedAddress = bulwarkUri.getAddress().toBase58();
+                        FundinURI fundinUri = new FundinURI(address);
+                        usedAddress = fundinUri.getAddress().toBase58();
                     }
                     final String tempPubKey = usedAddress;
                     OutputHolder outputHolder = (OutputHolder) getRecycler().findViewHolderForAdapterPosition(holderWaitingForAddress);
@@ -317,7 +317,7 @@ public class MultipleOutputsFragment extends BaseRecyclerFragment<OutputWrapper>
                 firstCheckAmount = true;
             }else
                 amountStr = outputWrapperList.getAmount().toPlainString();
-            boolean checkAddress = address==null || !bulwarkModule.chechAddress(address);
+            boolean checkAddress = address==null || !fundinModule.chechAddress(address);
             boolean checkAmount = firstCheckAmount || amountStr==null || amountStr.length() == 0;
             if (i!=list.size()-1) {
                 if (checkAddress)

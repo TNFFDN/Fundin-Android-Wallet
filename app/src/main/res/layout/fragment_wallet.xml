@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/bgWhite"
-    tools:context="bulwark.org.bulwarkwallet.ui.base.BaseDrawerActivity">
+    tools:context="fundin.org.fundinwallet.ui.base.BaseDrawerActivity">
 
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,7 +28,7 @@
             <fragment
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="bulwark.org.bulwarkwallet.ui.wallet_activity.TransactionsFragmentBase"
+                android:name="fundin.org.fundinwallet.ui.wallet_activity.TransactionsFragmentBase"
                 android:id="@+id/transactions_fragment"
                 android:paddingBottom="66dp"
                 />

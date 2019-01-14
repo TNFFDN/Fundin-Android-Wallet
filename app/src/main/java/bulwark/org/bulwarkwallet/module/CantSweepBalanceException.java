@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.module;
+package fundin.org.fundinwallet.module;
 
 import java.util.concurrent.TimeoutException;
 

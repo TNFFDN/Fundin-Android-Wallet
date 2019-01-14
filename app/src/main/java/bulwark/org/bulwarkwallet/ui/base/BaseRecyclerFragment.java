@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.base;
+package fundin.org.fundinwallet.ui.base;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
 
 /**
  * Created by kaali on 6/20/17.

@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.words_restore_activity;
+package fundin.org.fundinwallet.ui.words_restore_activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,20 +18,20 @@ import android.widget.Toast;
 
 import com.google.common.collect.Lists;
 
-import org.bulwarkj.crypto.MnemonicException;
+import org.fundinj.crypto.MnemonicException;
 
 import java.io.IOException;
 import java.util.List;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.WalletActivity;
-import bulwark.org.bulwarkwallet.utils.CrashReporter;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinContext;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
+import fundin.org.fundinwallet.ui.wallet_activity.WalletActivity;
+import fundin.org.fundinwallet.utils.CrashReporter;
+import fundin.org.fundinwallet.utils.DialogsUtil;
 
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.BULWARK_WALLET_APP_RELEASED_ON_PLAY_STORE_TIME;
+import static fundin.org.fundinwallet.module.FundinContext.BULWARK_WALLET_APP_RELEASED_ON_PLAY_STORE_TIME;
 
 /**
  * Created by Neoperol on 7/19/17.
@@ -162,11 +162,11 @@ public class RestoreWordsActivity extends BaseActivity {
                                 dialog.dismiss();
                                 try {
 
-                                    bulwarkModule.checkMnemonic(mnemonic);
+                                    fundinModule.checkMnemonic(mnemonic);
 
                                     boolean isBip32 = check_bip32.isChecked();
 
-                                    bulwarkModule.restoreWallet(mnemonic, BULWARK_WALLET_APP_RELEASED_ON_PLAY_STORE_TIME,!isBip32);
+                                    fundinModule.restoreWallet(mnemonic, BULWARK_WALLET_APP_RELEASED_ON_PLAY_STORE_TIME,!isBip32);
 
                                     Toast.makeText(RestoreWordsActivity.this, R.string.restore_mnemonic, Toast.LENGTH_LONG).show();
 
@@ -174,7 +174,7 @@ public class RestoreWordsActivity extends BaseActivity {
                                     finish();
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                    CrashReporter.saveBackgroundTrace(e, bulwarkApplication.getPackageInfo());
+                                    CrashReporter.saveBackgroundTrace(e, fundinApplication.getPackageInfo());
                                     // todo: show an error message here..
                                     Toast.makeText(RestoreWordsActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                 }catch (MnemonicException e){
@@ -182,7 +182,7 @@ public class RestoreWordsActivity extends BaseActivity {
                                     Toast.makeText(RestoreWordsActivity.this, R.string.invalid_mnemonic_code, Toast.LENGTH_LONG).show();
                                 }catch (Exception e){
                                     e.printStackTrace();
-                                    CrashReporter.saveBackgroundTrace(e,bulwarkApplication.getPackageInfo());
+                                    CrashReporter.saveBackgroundTrace(e,fundinApplication.getPackageInfo());
                                     // todo: show an error message here..
                                     Toast.makeText(RestoreWordsActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
                                 }
@@ -301,7 +301,7 @@ public class RestoreWordsActivity extends BaseActivity {
                 txtWord24 = (EditText) view.findViewById(R.id.text_word24);
                 txt_bip32_message = (TextView) root.findViewById(R.id.txt_bip32_message);
                 check_bip32 = (CheckBox) root.findViewById(R.id.check_bip32);
-                txt_bip32_message.setText(getString(R.string.restore_bip32_warning, BulwarkContext.ENABLE_BIP44_APP_VERSION));
+                txt_bip32_message.setText(getString(R.string.restore_bip32_warning, FundinContext.ENABLE_BIP44_APP_VERSION));
 
             }
 

@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.rate;
+package fundin.org.fundinwallet.rate;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -25,10 +25,10 @@ public class CoinMarketCapApiClient {
 
     private static final String URL = "https://api.coinmarketcap.com/v1/";
 
-    public BigDecimal getBulwarkPrice() throws RequestBulwarkRateException{
+    public BigDecimal getFundinPrice() throws RequestFundinRateException{
         try {
             BigDecimal bigDecimal = null;
-            String url = this.URL + "ticker/bulwark/";
+            String url = this.URL + "ticker/fundin/";
             BasicHttpParams basicHttpParams = new BasicHttpParams();
             HttpConnectionParams.setSoTimeout(basicHttpParams, (int) TimeUnit.MINUTES.toMillis(1));
             HttpClient client = new DefaultHttpClient(basicHttpParams);
@@ -50,13 +50,13 @@ public class CoinMarketCapApiClient {
             return bigDecimal;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
-            throw new RequestBulwarkRateException(e);
+            throw new RequestFundinRateException(e);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RequestBulwarkRateException(e);
+            throw new RequestFundinRateException(e);
         } catch (JSONException e) {
             e.printStackTrace();
-            throw new RequestBulwarkRateException(e);
+            throw new RequestFundinRateException(e);
         }
     }
 

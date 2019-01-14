@@ -1,6 +1,6 @@
-package bulwark.org.bulwarkwallet.contacts;
+package fundin.org.fundinwallet.contacts;
 
-import org.bulwarkj.core.Sha256Hash;
+import org.fundinj.core.Sha256Hash;
 
 import java.io.Serializable;
 import java.util.ArrayList;

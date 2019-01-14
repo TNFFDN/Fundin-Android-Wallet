@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bulwark.org.bulwarkwallet.utils;
+package fundin.org.fundinwallet.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,9 +46,9 @@ import java.io.Writer;
 import java.util.ArrayList;
 
 import global.utils.Io;
-import bulwark.org.bulwarkwallet.R;
+import fundin.org.fundinwallet.R;
 
-import static bulwark.org.bulwarkwallet.utils.AndroidUtils.shareText;
+import static fundin.org.fundinwallet.utils.AndroidUtils.shareText;
 
 
 public abstract class ReportIssueDialogBuilder extends DialogBuilder implements OnClickListener {

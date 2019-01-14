@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.utils;
+package fundin.org.fundinwallet.utils;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -13,9 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-import bulwark.org.bulwarkwallet.BulwarkApplication;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
+import fundin.org.fundinwallet.FundinApplication;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinContext;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -47,7 +47,7 @@ public class AndroidUtils {
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachments);
         }
 
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{BulwarkContext.REPORT_EMAIL});
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{FundinContext.REPORT_EMAIL});
         if (subject != null)
             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 //		ArrayList<CharSequence> str = new ArrayList<CharSequence>();
@@ -59,7 +59,7 @@ public class AndroidUtils {
         try {
             String maiñChooser = context.getString(R.string.report_issue_dialog_mail_intent_chooser);
             if (!(context instanceof Activity)){
-                BulwarkApplication.getInstance().getAppConf().saveShowReportScreenOnStart(true);
+                FundinApplication.getInstance().getAppConf().saveShowReportScreenOnStart(true);
                 intent.setFlags(FLAG_ACTIVITY_NEW_TASK|FLAG_ACTIVITY_CLEAR_TOP | FLAG_ACTIVITY_SINGLE_TOP);
             }
             context.startActivity(Intent.createChooser(intent, maiñChooser));

@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.service;
+package fundin.org.fundinwallet.service;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -20,20 +20,20 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
-import org.bulwarkj.core.Block;
-import org.bulwarkj.core.Coin;
-import org.bulwarkj.core.FilteredBlock;
-import org.bulwarkj.core.Peer;
-import org.bulwarkj.core.Transaction;
-import org.bulwarkj.core.TransactionConfidence;
-import org.bulwarkj.core.listeners.AbstractPeerDataEventListener;
-import org.bulwarkj.core.listeners.PeerConnectedEventListener;
-import org.bulwarkj.core.listeners.PeerDataEventListener;
-import org.bulwarkj.core.listeners.PeerDisconnectedEventListener;
-import org.bulwarkj.core.listeners.TransactionConfidenceEventListener;
-import org.bulwarkj.store.BlockStore;
-import org.bulwarkj.wallet.Wallet;
-import org.bulwarkj.wallet.listeners.WalletCoinsReceivedEventListener;
+import org.fundinj.core.Block;
+import org.fundinj.core.Coin;
+import org.fundinj.core.FilteredBlock;
+import org.fundinj.core.Peer;
+import org.fundinj.core.Transaction;
+import org.fundinj.core.TransactionConfidence;
+import org.fundinj.core.listeners.AbstractPeerDataEventListener;
+import org.fundinj.core.listeners.PeerConnectedEventListener;
+import org.fundinj.core.listeners.PeerDataEventListener;
+import org.fundinj.core.listeners.PeerDisconnectedEventListener;
+import org.fundinj.core.listeners.TransactionConfidenceEventListener;
+import org.fundinj.store.BlockStore;
+import org.fundinj.wallet.Wallet;
+import org.fundinj.wallet.listeners.WalletCoinsReceivedEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,47 +47,47 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import chain.BlockchainManager;
 import chain.BlockchainState;
 import chain.Impediment;
-import bwktrum.listeners.AddressListener;
-import bulwark.org.bulwarkwallet.BulwarkApplication;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
-import bulwark.org.bulwarkwallet.module.BulwarkModuleImp;
-import bulwark.org.bulwarkwallet.module.store.SnappyBlockchainStore;
-import bulwark.org.bulwarkwallet.rate.CoinMarketCapApiClient;
-import bulwark.org.bulwarkwallet.rate.CoinTypes;
-import bulwark.org.bulwarkwallet.rate.RequestBulwarkRateException;
-import bulwark.org.bulwarkwallet.rate.db.BulwarkRate;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.WalletActivity;
-import bulwark.org.bulwarkwallet.utils.AppConf;
-import bulwark.org.bulwarkwallet.utils.CrashReporter;
+import fdntrum.listeners.AddressListener;
+import fundin.org.fundinwallet.FundinApplication;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinContext;
+import fundin.org.fundinwallet.module.FundinModuleImp;
+import fundin.org.fundinwallet.module.store.SnappyBlockchainStore;
+import fundin.org.fundinwallet.rate.CoinMarketCapApiClient;
+import fundin.org.fundinwallet.rate.CoinTypes;
+import fundin.org.fundinwallet.rate.RequestFundinRateException;
+import fundin.org.fundinwallet.rate.db.FundinRate;
+import fundin.org.fundinwallet.ui.wallet_activity.WalletActivity;
+import fundin.org.fundinwallet.utils.AppConf;
+import fundin.org.fundinwallet.utils.CrashReporter;
 
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.CONTEXT;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_ADDRESS_BALANCE_CHANGE;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_BROADCAST_TRANSACTION;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_CANCEL_COINS_RECEIVED;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_NOTIFICATION;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_RESET_BLOCKCHAIN;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_SCHEDULE_SERVICE;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.DATA_TRANSACTION_HASH;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_BLOCKCHAIN_STATE;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_ON_COIN_RECEIVED;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_PEER_CONNECTED;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_TYPE;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_EXTRA_BLOCKCHAIN_STATE;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.NOT_BLOCKCHAIN_ALERT;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.NOT_COINS_RECEIVED;
+import static fundin.org.fundinwallet.module.FundinContext.CONTEXT;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_ADDRESS_BALANCE_CHANGE;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_BROADCAST_TRANSACTION;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_CANCEL_COINS_RECEIVED;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_NOTIFICATION;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_RESET_BLOCKCHAIN;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_SCHEDULE_SERVICE;
+import static fundin.org.fundinwallet.service.IntentsConstants.DATA_TRANSACTION_HASH;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_BLOCKCHAIN_STATE;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_ON_COIN_RECEIVED;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_PEER_CONNECTED;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_TYPE;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_EXTRA_BLOCKCHAIN_STATE;
+import static fundin.org.fundinwallet.service.IntentsConstants.NOT_BLOCKCHAIN_ALERT;
+import static fundin.org.fundinwallet.service.IntentsConstants.NOT_COINS_RECEIVED;
 
 /**
  * Created by kaali on 6/12/17.
  */
 
-public class BulwarkWalletService extends Service{
+public class FundinWalletService extends Service{
 
-    private Logger log = LoggerFactory.getLogger(BulwarkWalletService.class);
+    private Logger log = LoggerFactory.getLogger(FundinWalletService.class);
 
-    private BulwarkApplication bulwarkApplication;
-    private BulwarkModuleImp module;
-    //private BwktrumPeergroup bwktrumPeergroup;
+    private FundinApplication fundinApplication;
+    private FundinModuleImp module;
+    //private BwktrumPeergroup fdntrumPeergroup;
     private BlockchainManager blockchainManager;
 
     private PeerConnectivityListener peerConnectivityListener;
@@ -110,16 +110,16 @@ public class BulwarkWalletService extends Service{
     private volatile long lastUpdateTime = System.currentTimeMillis();
     private volatile long lastMessageTime = System.currentTimeMillis();
 
-    public class BulwarkBinder extends Binder {
-        public BulwarkWalletService getService() {
-            return BulwarkWalletService.this;
+    public class FundinBinder extends Binder {
+        public FundinWalletService getService() {
+            return FundinWalletService.this;
         }
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return new BulwarkBinder();
+        return new FundinBinder();
     }
 
     private AddressListener addressListener = new AddressListener() {
@@ -157,7 +157,7 @@ public class BulwarkWalletService extends Service{
             log.info("Peer: " + peer + ", Block: " + block + ", left: " + blocksLeft);*/
 
 
-            /*if (BulwarkContext.IS_TEST)
+            /*if (FundinContext.IS_TEST)
                 showBlockchainSyncNotification(blocksLeft);*/
 
                 //delayHandler.removeCallbacksAndMessages(null);
@@ -170,12 +170,12 @@ public class BulwarkWalletService extends Service{
                     } else {
                         blockchainState = BlockchainState.SYNCING;
                     }
-                    bulwarkApplication.getAppConf().setLastBestChainBlockTime(block.getTime().getTime());
+                    fundinApplication.getAppConf().setLastBestChainBlockTime(block.getTime().getTime());
                     broadcastBlockchainState(true);
                 }
             }catch (Exception e){
                 e.printStackTrace();
-                CrashReporter.saveBackgroundTrace(e,bulwarkApplication.getPackageInfo());
+                CrashReporter.saveBackgroundTrace(e,fundinApplication.getPackageInfo());
             }
         }
     };
@@ -190,7 +190,7 @@ public class BulwarkWalletService extends Service{
 
         @Override
         public void run() {
-            org.bulwarkj.core.Context.propagate(BulwarkContext.CONTEXT);
+            org.fundinj.core.Context.propagate(FundinContext.CONTEXT);
             lastMessageTime = System.currentTimeMillis();
             broadcastBlockchainState(false);
         }
@@ -237,7 +237,7 @@ public class BulwarkWalletService extends Service{
         @Override
         public void onCoinsReceived(Wallet wallet, Transaction transaction, Coin coin, Coin coin1) {
             //todo: acá falta una validación para saber si la transaccion es mia.
-            org.bulwarkj.core.Context.propagate(CONTEXT);
+            org.fundinj.core.Context.propagate(CONTEXT);
 
             try {
 
@@ -260,11 +260,11 @@ public class BulwarkWalletService extends Service{
                     notificationAccumulatedAmount = notificationAccumulatedAmount.add(amount);
                     Intent openIntent = new Intent(getApplicationContext(), WalletActivity.class);
                     openPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, openIntent, 0);
-                    Intent resultIntent = new Intent(getApplicationContext(), BulwarkWalletService.this.getClass());
+                    Intent resultIntent = new Intent(getApplicationContext(), FundinWalletService.this.getClass());
                     resultIntent.setAction(ACTION_CANCEL_COINS_RECEIVED);
-                    deleteIntent = PendingIntent.getService(BulwarkWalletService.this, 0, resultIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                    deleteIntent = PendingIntent.getService(FundinWalletService.this, 0, resultIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                     mBuilder = new NotificationCompat.Builder(getApplicationContext())
-                            .setContentTitle("BWK received!")
+                            .setContentTitle("FDN received!")
                             .setContentText("Coins received for a value of " + notificationAccumulatedAmount.toFriendlyString())
                             .setAutoCancel(true)
                             .setSmallIcon(R.mipmap.ic_launcher)
@@ -272,7 +272,7 @@ public class BulwarkWalletService extends Service{
                                     (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) ?
                                             getResources().getColor(R.color.bgPurple, null)
                                             :
-                                            ContextCompat.getColor(BulwarkWalletService.this, R.color.bgPurple))
+                                            ContextCompat.getColor(FundinWalletService.this, R.color.bgPurple))
                             .setDeleteIntent(deleteIntent)
                             .setContentIntent(openPendingIntent);
                     nm.notify(NOT_COINS_RECEIVED, mBuilder.build());
@@ -290,7 +290,7 @@ public class BulwarkWalletService extends Service{
     private TransactionConfidenceEventListener transactionConfidenceEventListener = new TransactionConfidenceEventListener() {
         @Override
         public void onTransactionConfidenceChanged(Wallet wallet, Transaction transaction) {
-            org.bulwarkj.core.Context.propagate(CONTEXT);
+            org.fundinj.core.Context.propagate(CONTEXT);
             try {
                 if (transaction != null) {
                     if (transaction.getConfidence().getDepthInBlocks() > 1) {
@@ -315,21 +315,21 @@ public class BulwarkWalletService extends Service{
         serviceCreatedAt = System.currentTimeMillis();
         super.onCreate();
         try {
-            log.info("Bulwark service started");
+            log.info("Fundin service started");
             // Android stuff
             final String lockName = getPackageName() + " blockchain sync";
             final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
             wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, lockName);
             nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             broadcastManager = LocalBroadcastManager.getInstance(this);
-            // Bulwark
-            bulwarkApplication = BulwarkApplication.getInstance();
-            module = (BulwarkModuleImp) bulwarkApplication.getModule();
+            // Fundin
+            fundinApplication = FundinApplication.getInstance();
+            module = (FundinModuleImp) fundinApplication.getModule();
             blockchainManager = module.getBlockchainManager();
-            // connect to bwktrum node
-            /*bwktrumPeergroup = new BwktrumPeergroup(bulwarkApplication.getNetworkConf());
-            bwktrumPeergroup.addAddressListener(addressListener);
-            module.setBwktrumPeergroup(bwktrumPeergroup);*/
+            // connect to fdntrum node
+            /*fdntrumPeergroup = new BwktrumPeergroup(fundinApplication.getNetworkConf());
+            fdntrumPeergroup.addAddressListener(addressListener);
+            module.setBwktrumPeergroup(fdntrumPeergroup);*/
 
             // Schedule service
             tryScheduleService();
@@ -337,9 +337,9 @@ public class BulwarkWalletService extends Service{
             peerConnectivityListener = new PeerConnectivityListener();
 
             File file = getDir("blockstore_v2",MODE_PRIVATE);
-            String filename = BulwarkContext.Files.BLOCKCHAIN_FILENAME;
+            String filename = FundinContext.Files.BLOCKCHAIN_FILENAME;
             boolean fileExists = new File(file,filename).exists();
-            blockchainStore = new SnappyBlockchainStore(BulwarkContext.CONTEXT,file,filename);
+            blockchainStore = new SnappyBlockchainStore(FundinContext.CONTEXT,file,filename);
             blockchainManager.init(
                     blockchainStore,
                     file,
@@ -357,7 +357,7 @@ public class BulwarkWalletService extends Service{
             registerReceiver(connectivityReceiver, intentFilter); // implicitly init PeerGroup
 
             // initilizing trusted node.
-            //bwktrumPeergroup.start();
+            //fdntrumPeergroup.start();
 
 
         } catch (Error e){
@@ -378,7 +378,7 @@ public class BulwarkWalletService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        log.info("Bulwark service onStartCommand");
+        log.info("Fundin service onStartCommand");
         try {
             if (intent != null) {
                 try {
@@ -433,8 +433,8 @@ public class BulwarkWalletService extends Service{
             }*/
             blockchainManager.destroy(resetBlockchainOnShutdown);
 
-            /*if (bwktrumPeergroup.isRunning()) {
-                bwktrumPeergroup.shutdown();
+            /*if (fdntrumPeergroup.isRunning()) {
+                fdntrumPeergroup.shutdown();
             }*/
 
             if (wakeLock.isHeld()) {
@@ -461,7 +461,7 @@ public class BulwarkWalletService extends Service{
             AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
             long scheduleTime = System.currentTimeMillis() + 2000*60;//(1000 * 60 * 60); // One hour from now
 
-            Intent intent = new Intent(this, BulwarkWalletService.class);
+            Intent intent = new Intent(this, FundinWalletService.class);
             intent.setAction(ACTION_SCHEDULE_SERVICE);
             alarm.set(
                     // This alarm will wake up the device when System.currentTimeMillis()
@@ -483,18 +483,18 @@ public class BulwarkWalletService extends Service{
     }
 
     private void requestRateCoin(){
-        final AppConf appConf = bulwarkApplication.getAppConf();
-        BulwarkRate bulwarkRate = module.getRate(appConf.getSelectedRateCoin());
-        if (bulwarkRate==null || bulwarkRate.getTimestamp()+BulwarkContext.RATE_UPDATE_TIME<System.currentTimeMillis()){
+        final AppConf appConf = fundinApplication.getAppConf();
+        FundinRate fundinRate = module.getRate(appConf.getSelectedRateCoin());
+        if (fundinRate==null || fundinRate.getTimestamp()+FundinContext.RATE_UPDATE_TIME<System.currentTimeMillis()){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         CoinMarketCapApiClient c = new CoinMarketCapApiClient();
-                        BigDecimal usdValue = c.getBulwarkPrice();
-                        BulwarkRate bulwarkRate = new BulwarkRate(CoinTypes.USD.name(),usdValue,System.currentTimeMillis(),"coinmarketcap");
-                        module.saveRate(bulwarkRate);
-                    } catch (RequestBulwarkRateException e) {
+                        BigDecimal usdValue = c.getFundinPrice();
+                        FundinRate fundinRate = new FundinRate(CoinTypes.USD.name(),usdValue,System.currentTimeMillis(),"coinmarketcap");
+                        module.saveRate(fundinRate);
+                    } catch (RequestFundinRateException e) {
                         e.printStackTrace();
                     } catch (Exception e){
                         e.printStackTrace();
@@ -558,7 +558,7 @@ public class BulwarkWalletService extends Service{
                                         (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) ?
                                                 getResources().getColor(R.color.bgPurple,null)
                                                 :
-                                                ContextCompat.getColor(BulwarkWalletService.this,R.color.bgPurple))
+                                                ContextCompat.getColor(FundinWalletService.this,R.color.bgPurple))
                         ;
 
                 nm.notify(NOT_BLOCKCHAIN_ALERT, mBuilder.build());

@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_detail_activity;
+package fundin.org.fundinwallet.ui.transaction_detail_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseRecyclerFragment;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.inputs.InputWrapper;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseRecyclerFragment;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.inputs.InputWrapper;
 import wallet.exceptions.TxNotFoundException;
 
 /**
@@ -41,7 +41,7 @@ public class InputsDetailFragment extends BaseRecyclerFragment<InputWrapper> {
                 if (intent.hasExtra(INTENT_EXTRA_UNSPENT_WRAPPERS)) {
                     list = (Set<InputWrapper>) intent.getSerializableExtra(INTENT_EXTRA_UNSPENT_WRAPPERS);
                     for (InputWrapper inputWrapper : list) {
-                        inputWrapper.setUnspent(bulwarkModule.getUnspent(inputWrapper.getParentTxHash(), inputWrapper.getIndex()));
+                        inputWrapper.setUnspent(fundinModule.getUnspent(inputWrapper.getParentTxHash(), inputWrapper.getIndex()));
                     }
                 }
             }

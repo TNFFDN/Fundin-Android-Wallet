@@ -1,10 +1,10 @@
-package bulwark.org.bulwarkwallet.utils;
+package fundin.org.fundinwallet.utils;
 
 import android.content.SharedPreferences;
 
-import bwktrum.BwktrumPeerData;
+import fdntrum.BwktrumPeerData;
 
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.DEFAULT_RATE_COIN;
+import static fundin.org.fundinwallet.module.FundinContext.DEFAULT_RATE_COIN;
 
 /**
  * Created by kaali on 6/8/17.
@@ -47,10 +47,10 @@ public class AppConf extends Configurations {
         return getString(PINCODE,null);
     }
 
-    public void saveTrustedNode(BwktrumPeerData bwktrumPeerData){
-        save(TRUSTED_NODE_HOST,bwktrumPeerData.getHost());
-        save(TRUSTED_NODE_TCP,bwktrumPeerData.getTcpPort());
-        save(TRUSTED_NODE_SSL,bwktrumPeerData.getSslPort());
+    public void saveTrustedNode(BwktrumPeerData fdntrumPeerData){
+        save(TRUSTED_NODE_HOST,fdntrumPeerData.getHost());
+        save(TRUSTED_NODE_TCP,fdntrumPeerData.getTcpPort());
+        save(TRUSTED_NODE_SSL,fdntrumPeerData.getSslPort());
     }
     public BwktrumPeerData getTrustedNode(){
         String host = getString(TRUSTED_NODE_HOST,null);

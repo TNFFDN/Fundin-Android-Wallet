@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.module.store;
+package fundin.org.fundinwallet.module.store;
 
 import android.support.annotation.Nullable;
 
@@ -6,13 +6,13 @@ import com.snappydb.DB;
 import com.snappydb.DBFactory;
 import com.snappydb.SnappydbException;
 
-import org.bulwarkj.core.Block;
-import org.bulwarkj.core.Context;
-import org.bulwarkj.core.NetworkParameters;
-import org.bulwarkj.core.Sha256Hash;
-import org.bulwarkj.core.StoredBlock;
-import org.bulwarkj.store.BlockStore;
-import org.bulwarkj.store.BlockStoreException;
+import org.fundinj.core.Block;
+import org.fundinj.core.Context;
+import org.fundinj.core.NetworkParameters;
+import org.fundinj.core.Sha256Hash;
+import org.fundinj.core.StoredBlock;
+import org.fundinj.store.BlockStore;
+import org.fundinj.store.BlockStoreException;
 
 import java.io.File;
 import java.io.IOException;

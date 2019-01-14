@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.contacts;
+package fundin.org.fundinwallet.contacts;
 
 import android.content.ContentValues;
 import android.content.Context;

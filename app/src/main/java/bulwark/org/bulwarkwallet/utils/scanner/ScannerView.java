@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bulwark.org.bulwarkwallet.utils.scanner;
+package fundin.org.fundinwallet.utils.scanner;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import bulwark.org.bulwarkwallet.R;
+import fundin.org.fundinwallet.R;
 
 
 /**

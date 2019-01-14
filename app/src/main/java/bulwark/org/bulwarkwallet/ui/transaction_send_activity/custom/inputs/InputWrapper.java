@@ -1,12 +1,12 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.inputs;
+package fundin.org.fundinwallet.ui.transaction_send_activity.custom.inputs;
 
-import org.bulwarkj.core.Sha256Hash;
-import org.bulwarkj.core.TransactionOutput;
+import org.fundinj.core.Sha256Hash;
+import org.fundinj.core.TransactionOutput;
 
 import java.io.Serializable;
 
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
+import fundin.org.fundinwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.module.FundinContext;
 
 /**
  * Created by kaali on 8/4/17.
@@ -50,7 +50,7 @@ public class InputWrapper implements Serializable{
 
 
     public String getLabel() {
-        return addressLabel !=null? addressLabel.toLabel():unspent.getScriptPubKey().getToAddress(BulwarkContext.NETWORK_PARAMETERS,true).toBase58();
+        return addressLabel !=null? addressLabel.toLabel():unspent.getScriptPubKey().getToAddress(FundinContext.NETWORK_PARAMETERS,true).toBase58();
     }
 
     @Override

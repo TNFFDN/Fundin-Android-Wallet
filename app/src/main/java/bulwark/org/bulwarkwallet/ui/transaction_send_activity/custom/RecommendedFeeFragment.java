@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom;
+package fundin.org.fundinwallet.ui.transaction_send_activity.custom;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import org.bulwarkj.core.Transaction;
+import org.fundinj.core.Transaction;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseFragment;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseFragment;
 
 /**
  * Created by kaali on 8/3/17.

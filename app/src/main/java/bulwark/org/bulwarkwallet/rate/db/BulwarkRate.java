@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.rate.db;
+package fundin.org.fundinwallet.rate.db;
 
 import java.math.BigDecimal;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * Created by kaali on 7/5/17.
  */
 
-public class BulwarkRate {
+public class FundinRate {
 
     private long id;
     /** Coin letters (USD,EUR,etc..) */
@@ -18,7 +18,7 @@ public class BulwarkRate {
     /** Link to get currency price */
     private String link;
 
-    public BulwarkRate(String coin, BigDecimal value, long timestamp, String link) {
+    public FundinRate(String coin, BigDecimal value, long timestamp, String link) {
         this.coin = coin;
         this.value = value;
         this.timestamp = timestamp;

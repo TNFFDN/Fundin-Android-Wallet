@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity;
+package fundin.org.fundinwallet.ui.transaction_send_activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,15 +26,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import org.bulwarkj.core.Address;
-import org.bulwarkj.core.Coin;
-import org.bulwarkj.core.InsufficientMoneyException;
-import org.bulwarkj.core.NetworkParameters;
-import org.bulwarkj.core.Transaction;
-import org.bulwarkj.core.TransactionInput;
-import org.bulwarkj.core.TransactionOutput;
-import org.bulwarkj.uri.BulwarkURI;
-import org.bulwarkj.wallet.Wallet;
+import org.fundinj.core.Address;
+import org.fundinj.core.Coin;
+import org.fundinj.core.InsufficientMoneyException;
+import org.fundinj.core.NetworkParameters;
+import org.fundinj.core.Transaction;
+import org.fundinj.core.TransactionInput;
+import org.fundinj.core.TransactionOutput;
+import org.fundinj.uri.FundinURI;
+import org.fundinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,46 +46,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
-import bulwark.org.bulwarkwallet.module.NoPeerConnectedException;
-import bulwark.org.bulwarkwallet.rate.db.BulwarkRate;
-import bulwark.org.bulwarkwallet.service.BulwarkWalletService;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTextDialog;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.ChangeAddressActivity;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.CustomFeeActivity;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.CustomFeeFragment;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.inputs.InputWrapper;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.inputs.InputsActivity;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs.OutputWrapper;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs.OutputsActivity;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.TransactionWrapper;
-import bulwark.org.bulwarkwallet.utils.CrashReporter;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
-import bulwark.org.bulwarkwallet.utils.NavigationUtils;
-import bulwark.org.bulwarkwallet.utils.scanner.ScanActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.module.NoPeerConnectedException;
+import fundin.org.fundinwallet.rate.db.FundinRate;
+import fundin.org.fundinwallet.service.FundinWalletService;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTextDialog;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.ChangeAddressActivity;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.CustomFeeActivity;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.CustomFeeFragment;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.inputs.InputWrapper;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.inputs.InputsActivity;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs.OutputWrapper;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs.OutputsActivity;
+import fundin.org.fundinwallet.ui.wallet_activity.TransactionWrapper;
+import fundin.org.fundinwallet.utils.CrashReporter;
+import fundin.org.fundinwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.utils.NavigationUtils;
+import fundin.org.fundinwallet.utils.scanner.ScanActivity;
 import wallet.exceptions.InsufficientInputsException;
 import wallet.exceptions.TxNotFoundException;
 
 import static android.Manifest.permission_group.CAMERA;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_BROADCAST_TRANSACTION;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.DATA_TRANSACTION_HASH;
-import static bulwark.org.bulwarkwallet.ui.transaction_detail_activity.FragmentTxDetail.TX;
-import static bulwark.org.bulwarkwallet.ui.transaction_detail_activity.FragmentTxDetail.TX_MEMO;
-import static bulwark.org.bulwarkwallet.ui.transaction_detail_activity.FragmentTxDetail.TX_WRAPPER;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.ChangeAddressActivity.INTENT_EXTRA_CHANGE_ADDRESS;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.ChangeAddressActivity.INTENT_EXTRA_CHANGE_SEND_ORIGIN;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_CLEAR;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_FEE;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_IS_FEE_PER_KB;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_IS_MINIMUM_FEE;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_IS_TOTAL_FEE;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.inputs.InputsFragment.INTENT_EXTRA_UNSPENT_WRAPPERS;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs.OutputsActivity.INTENT_EXTRA_OUTPUTS_CLEAR;
-import static bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs.OutputsActivity.INTENT_EXTRA_OUTPUTS_WRAPPERS;
-import static bulwark.org.bulwarkwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_BROADCAST_TRANSACTION;
+import static fundin.org.fundinwallet.service.IntentsConstants.DATA_TRANSACTION_HASH;
+import static fundin.org.fundinwallet.ui.transaction_detail_activity.FragmentTxDetail.TX;
+import static fundin.org.fundinwallet.ui.transaction_detail_activity.FragmentTxDetail.TX_MEMO;
+import static fundin.org.fundinwallet.ui.transaction_detail_activity.FragmentTxDetail.TX_WRAPPER;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.ChangeAddressActivity.INTENT_EXTRA_CHANGE_ADDRESS;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.ChangeAddressActivity.INTENT_EXTRA_CHANGE_SEND_ORIGIN;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_CLEAR;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_FEE;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_IS_FEE_PER_KB;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_IS_MINIMUM_FEE;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.CustomFeeFragment.INTENT_EXTRA_IS_TOTAL_FEE;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.inputs.InputsFragment.INTENT_EXTRA_UNSPENT_WRAPPERS;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs.OutputsActivity.INTENT_EXTRA_OUTPUTS_CLEAR;
+import static fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs.OutputsActivity.INTENT_EXTRA_OUTPUTS_WRAPPERS;
+import static fundin.org.fundinwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
 
 /**
  * Created by Neoperol on 5/4/17.
@@ -114,7 +114,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
     private EditText edit_memo;
     private MyFilterableAdapter filterableAdapter;
     private String addressStr;
-    private BulwarkRate bulwarkRate;
+    private FundinRate fundinRate;
     private SimpleTextDialog errorDialog;
     private ImageButton btnSwap;
     private ViewFlipper amountSwap;
@@ -176,7 +176,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
         //Sending amount piv
         addAllPiv =  (Button) findViewById(R.id.btn_add_all);
         addAllPiv.setOnClickListener(this);
-        bulwarkRate = bulwarkModule.getRate(bulwarkApplication.getAppConf().getSelectedRateCoin());
+        fundinRate = fundinModule.getRate(fundinApplication.getAppConf().getSelectedRateCoin());
 
         editCurrency.addTextChangedListener(new TextWatcher() {
             @Override
@@ -191,16 +191,16 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (bulwarkRate != null) {
+                if (fundinRate != null) {
                     if (s.length() > 0) {
                         String valueStr = s.toString();
                         if (valueStr.charAt(0) == '.') {
                             valueStr = "0" + valueStr;
                         }
-                        BigDecimal result = new BigDecimal(valueStr).divide(bulwarkRate.getValue(), 6, BigDecimal.ROUND_DOWN);
-                        txtShowPiv.setText(result.toPlainString() + " BWK");
+                        BigDecimal result = new BigDecimal(valueStr).divide(fundinRate.getValue(), 6, BigDecimal.ROUND_DOWN);
+                        txtShowPiv.setText(result.toPlainString() + " FDN");
                     } else {
-                        txtShowPiv.setText("0 " + bulwarkRate.getCoin());
+                        txtShowPiv.setText("0 " + fundinRate.getCoin());
                     }
                 }else {
                     txtShowPiv.setText(R.string.no_rate);
@@ -223,25 +223,25 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length()>0) {
-                    if (bulwarkRate != null) {
+                    if (fundinRate != null) {
                         String valueStr = s.toString();
                         if (valueStr.charAt(0) == '.') {
                             valueStr = "0" + valueStr;
                         }
                         Coin coin = Coin.parseCoin(valueStr);
                         txt_local_currency.setText(
-                                bulwarkApplication.getCentralFormats().format(
-                                        new BigDecimal(coin.getValue() * bulwarkRate.getValue().doubleValue()).movePointLeft(8)
+                                fundinApplication.getCentralFormats().format(
+                                        new BigDecimal(coin.getValue() * fundinRate.getValue().doubleValue()).movePointLeft(8)
                                 )
-                                        + " " + bulwarkRate.getCoin()
+                                        + " " + fundinRate.getCoin()
                         );
                     }else {
                         // rate null -> no connection.
                         txt_local_currency.setText(R.string.no_rate);
                     }
                 }else {
-                    if (bulwarkRate!=null)
-                        txt_local_currency.setText("0 "+bulwarkRate.getCoin());
+                    if (fundinRate!=null)
+                        txt_local_currency.setText("0 "+fundinRate.getCoin());
                     else
                         txt_local_currency.setText(R.string.no_rate);
                 }
@@ -330,7 +330,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
         super.onRestoreInstanceState(savedInstanceState);
         // todo: test this roting the screen..
         if (savedInstanceState.containsKey(TX)){
-            transaction = new Transaction(bulwarkModule.getConf().getNetworkParams(),savedInstanceState.getByteArray(TX));
+            transaction = new Transaction(fundinModule.getConf().getNetworkParams(),savedInstanceState.getByteArray(TX));
         }
     }
 
@@ -345,7 +345,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
         super.onResume();
         // todo: This is not updating the filter..
         if (filterableAdapter==null) {
-            List<AddressLabel> list = new ArrayList<>(bulwarkModule.getContacts());
+            List<AddressLabel> list = new ArrayList<>(fundinModule.getContacts());
             filterableAdapter = new MyFilterableAdapter(this,list );
             edit_address.setAdapter(filterableAdapter);
         }
@@ -383,19 +383,19 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
         }else if(id == R.id.btn_add_all){
             if (!isMultiSend) {
                 cleanWallet = true;
-                Coin coin = bulwarkModule.getAvailableBalanceCoin();
+                Coin coin = fundinModule.getAvailableBalanceCoin();
                 if (inPivs) {
                     edit_amount.setText(coin.toPlainString());
                     txt_local_currency.setText(
-                            bulwarkApplication.getCentralFormats().format(
-                                    new BigDecimal(coin.getValue() * bulwarkRate.getValue().doubleValue()).movePointLeft(8)
+                            fundinApplication.getCentralFormats().format(
+                                    new BigDecimal(coin.getValue() * fundinRate.getValue().doubleValue()).movePointLeft(8)
                             )
-                                    + " " + bulwarkRate.getCoin()
+                                    + " " + fundinRate.getCoin()
                     );
                 } else {
                     editCurrency.setText(
-                            bulwarkApplication.getCentralFormats().format(
-                                    new BigDecimal(coin.getValue() * bulwarkRate.getValue().doubleValue()).movePointLeft(8)
+                            fundinApplication.getCentralFormats().format(
+                                    new BigDecimal(coin.getValue() * fundinRate.getValue().doubleValue()).movePointLeft(8)
                             )
                     );
                     txtShowPiv.setText(coin.toFriendlyString());
@@ -480,11 +480,11 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                 try {
                     address = data.getStringExtra(INTENT_EXTRA_RESULT);
                     String usedAddress;
-                    if (bulwarkModule.chechAddress(address)){
+                    if (fundinModule.chechAddress(address)){
                         usedAddress = address;
                     }else {
-                        BulwarkURI bulwarkUri = new BulwarkURI(address);
-                        usedAddress = bulwarkUri.getAddress().toBase58();
+                        FundinURI fundinUri = new FundinURI(address);
+                        usedAddress = fundinUri.getAddress().toBase58();
                     }
                     final String tempPubKey = usedAddress;
                     edit_address.setText(tempPubKey);
@@ -500,7 +500,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                     sendConfirmed();
                 }catch (Exception e){
                     e.printStackTrace();
-                    CrashReporter.saveBackgroundTrace(e,bulwarkApplication.getPackageInfo());
+                    CrashReporter.saveBackgroundTrace(e,fundinApplication.getPackageInfo());
                     showErrorDialog(R.string.commit_tx_fail);
                 }
             }
@@ -530,16 +530,16 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                 try {
                     Set<InputWrapper> unspents = (Set<InputWrapper>) data.getSerializableExtra(INTENT_EXTRA_UNSPENT_WRAPPERS);
                     for (InputWrapper inputWrapper : unspents) {
-                        inputWrapper.setUnspent(bulwarkModule.getUnspent(inputWrapper.getParentTxHash(), inputWrapper.getIndex()));
+                        inputWrapper.setUnspent(fundinModule.getUnspent(inputWrapper.getParentTxHash(), inputWrapper.getIndex()));
                     }
                     unspent = unspents;
                     txt_coin_selection.setVisibility(View.VISIBLE);
                 } catch (TxNotFoundException e) {
                     e.printStackTrace();
-                    CrashReporter.saveBackgroundTrace(e,bulwarkApplication.getPackageInfo());
+                    CrashReporter.saveBackgroundTrace(e,fundinApplication.getPackageInfo());
                     Toast.makeText(this,R.string.load_inputs_fail,Toast.LENGTH_LONG).show();
                 } catch (Exception e){
-                    CrashReporter.saveBackgroundTrace(e,bulwarkApplication.getPackageInfo());
+                    CrashReporter.saveBackgroundTrace(e,fundinApplication.getPackageInfo());
                     Toast.makeText(this,R.string.load_inputs_fail,Toast.LENGTH_LONG).show();
                 }
             }
@@ -570,7 +570,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                     }else {
                         if (data.hasExtra(INTENT_EXTRA_CHANGE_ADDRESS)) {
                             String address = data.getStringExtra(INTENT_EXTRA_CHANGE_ADDRESS);
-                            changeAddress = Address.fromBase58(bulwarkModule.getConf().getNetworkParams(),address);
+                            changeAddress = Address.fromBase58(fundinModule.getConf().getNetworkParams(),address);
                         }
                     }
                     txt_change_address.setVisibility(View.VISIBLE);
@@ -604,7 +604,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                 if (valueStr.charAt(0) == '.') {
                     valueStr = "0" + valueStr;
                 }
-                BigDecimal result = new BigDecimal(valueStr).multiply(bulwarkRate.getValue());
+                BigDecimal result = new BigDecimal(valueStr).multiply(fundinRate.getValue());
                 amountStr = result.setScale(6, RoundingMode.FLOOR).toPlainString();
             }
         }
@@ -616,7 +616,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
             edit_amount.setText(amount.toPlainString());
             edit_amount.setEnabled(false);
         }else {
-            BigDecimal result = new BigDecimal(amount.toPlainString()).multiply(bulwarkRate.getValue()).setScale(6,RoundingMode.FLOOR);
+            BigDecimal result = new BigDecimal(amount.toPlainString()).multiply(fundinRate.getValue()).setScale(6,RoundingMode.FLOOR);
             editCurrency.setText(result.toPlainString());
             edit_amount.setEnabled(false);
         }
@@ -635,7 +635,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
 
             // check if the wallet is still syncing
             try {
-                if(!bulwarkModule.isSyncWithNode()){
+                if(!fundinModule.isSyncWithNode()){
                     throw new IllegalArgumentException(getString(R.string.wallet_is_not_sync));
                 }
             } catch (NoPeerConnectedException e) {
@@ -656,31 +656,31 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
             Coin amount = Coin.parseCoin(amountStr);
             if (amount.isZero()) throw new IllegalArgumentException("Amount zero, please correct it");
             if (amount.isLessThan(Transaction.MIN_NONDUST_OUTPUT)) throw new IllegalArgumentException("Amount must be greater than the minimum amount accepted from miners, "+Transaction.MIN_NONDUST_OUTPUT.toFriendlyString());
-            if (amount.isGreaterThan(Coin.valueOf(bulwarkModule.getAvailableBalance())))
+            if (amount.isGreaterThan(Coin.valueOf(fundinModule.getAvailableBalance())))
                 throw new IllegalArgumentException("Insuficient balance");
 
             // memo
             String memo = edit_memo.getText().toString();
 
-            NetworkParameters params = bulwarkModule.getConf().getNetworkParams();
+            NetworkParameters params = fundinModule.getConf().getNetworkParams();
 
             if ( (outputWrappers==null || outputWrappers.isEmpty()) && (unspent==null || unspent.isEmpty()) ){
                 addressStr = edit_address.getText().toString();
-                if (!bulwarkModule.chechAddress(addressStr))
+                if (!fundinModule.chechAddress(addressStr))
                     throw new IllegalArgumentException("Address not valid");
                 Coin feePerKb = getFee();
                 Address changeAddressTemp = null;
                 if (changeAddress!=null){
                     changeAddressTemp = changeAddress;
                 }else {
-                    changeAddressTemp = bulwarkModule.getReceiveAddress();
+                    changeAddressTemp = fundinModule.getReceiveAddress();
                 }
-                transaction = bulwarkModule.buildSendTx(addressStr,amount,feePerKb,memo,changeAddressTemp);
+                transaction = fundinModule.buildSendTx(addressStr,amount,feePerKb,memo,changeAddressTemp);
 
                 // check if there is a need to change the change address
                 if (changeToOrigin){
                     transaction = changeChangeAddressToOriginAddress(transaction,changeAddressTemp);
-                    transaction = bulwarkModule.completeTx(transaction);
+                    transaction = fundinModule.completeTx(transaction);
                 }
             }else {
                 transaction = new Transaction(params);
@@ -694,9 +694,9 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                     }
                 } else {
                     addressStr = edit_address.getText().toString();
-                    if (!bulwarkModule.chechAddress(addressStr))
+                    if (!fundinModule.chechAddress(addressStr))
                         throw new IllegalArgumentException("Address not valid");
-                    transaction.addOutput(amount, Address.fromBase58(bulwarkModule.getConf().getNetworkParams(), addressStr));
+                    transaction.addOutput(amount, Address.fromBase58(fundinModule.getConf().getNetworkParams(), addressStr));
                 }
 
                 // then check custom inputs if there is any
@@ -710,7 +710,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                 Coin inputsSum = transaction.getInputSum();
 
                 if (ouputsSum.isGreaterThan(inputsSum)) {
-                    List<TransactionOutput> unspent = bulwarkModule.getRandomUnspentNotInListToFullCoins(transaction.getInputs(), ouputsSum);
+                    List<TransactionOutput> unspent = fundinModule.getRandomUnspentNotInListToFullCoins(transaction.getInputs(), ouputsSum);
                     for (TransactionOutput transactionOutput : unspent) {
                         transaction.addInput(transactionOutput);
                     }
@@ -728,16 +728,16 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
                 if (changeAddress==null){
                     changeAddressTemp = changeAddress;
                 }else {
-                    changeAddressTemp = bulwarkModule.getReceiveAddress();
+                    changeAddressTemp = fundinModule.getReceiveAddress();
                 }
 
-                transaction = bulwarkModule.completeTx(transaction,changeAddressTemp,feePerKb);
+                transaction = fundinModule.completeTx(transaction,changeAddressTemp,feePerKb);
 
                 // check if there is a need to change the change address
                 // check if there is a need to change the change address
                 if (changeToOrigin){
                     transaction = changeChangeAddressToOriginAddress(transaction,changeAddressTemp);
-                    transaction = bulwarkModule.completeTx(transaction);
+                    transaction = fundinModule.completeTx(transaction);
                 }
             }
 
@@ -782,7 +782,7 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
         }
         Address originAddress = origin.getConnectedOutput().getScriptPubKey().getToAddress(params,true);
         // check if the address is mine just in case
-        if (!bulwarkModule.isAddressUsed(originAddress)) throw new IllegalStateException("origin address is not on the wallet: "+originAddress);
+        if (!fundinModule.isAddressUsed(originAddress)) throw new IllegalStateException("origin address is not on the wallet: "+originAddress);
 
         // Now i just have to re organize the outputs.
         TransactionOutput changeOutput = null;
@@ -837,8 +837,8 @@ public class SendActivity extends BaseActivity implements View.OnClickListener {
             showErrorDialog(R.string.commit_tx_fail);
             return;
         }
-        bulwarkModule.commitTx(transaction);
-        Intent intent = new Intent(SendActivity.this, BulwarkWalletService.class);
+        fundinModule.commitTx(transaction);
+        Intent intent = new Intent(SendActivity.this, FundinWalletService.class);
         intent.setAction(ACTION_BROADCAST_TRANSACTION);
         intent.putExtra(DATA_TRANSACTION_HASH,transaction.getHash().getBytes());
         startService(intent);

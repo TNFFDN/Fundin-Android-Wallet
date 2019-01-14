@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom;
+package fundin.org.fundinwallet.ui.transaction_send_activity.custom;
 
 import android.content.Intent;
 import android.os.Build;
@@ -13,15 +13,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.bulwarkj.core.AddressFormatException;
-import org.bulwarkj.uri.BulwarkURI;
+import org.fundinj.core.AddressFormatException;
+import org.fundinj.uri.FundinURI;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
-import bulwark.org.bulwarkwallet.utils.scanner.ScanActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.utils.scanner.ScanActivity;
 import static android.Manifest.permission_group.CAMERA;
-import static bulwark.org.bulwarkwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
+import static fundin.org.fundinwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
 
 
 /**
@@ -154,11 +154,11 @@ public class ChangeAddressActivity extends BaseActivity {
                     String address = "";
                     address = data.getStringExtra(INTENT_EXTRA_RESULT);
                     String usedAddress;
-                    if (bulwarkModule.chechAddress(address)){
+                    if (fundinModule.chechAddress(address)){
                         usedAddress = address;
                     }else {
-                        BulwarkURI bulwarkUri = new BulwarkURI(address);
-                        usedAddress = bulwarkUri.getAddress().toBase58();
+                        FundinURI fundinUri = new FundinURI(address);
+                        usedAddress = fundinUri.getAddress().toBase58();
                     }
                     edit_address.setText(usedAddress);
                 }catch (Exception e){
@@ -171,7 +171,7 @@ public class ChangeAddressActivity extends BaseActivity {
 
     public String getAndCheckAddress() {
         String address = edit_address.getText().toString();
-        if (!bulwarkModule.chechAddress(address)){
+        if (!fundinModule.chechAddress(address)){
             throw new AddressFormatException();
         }
         return address;

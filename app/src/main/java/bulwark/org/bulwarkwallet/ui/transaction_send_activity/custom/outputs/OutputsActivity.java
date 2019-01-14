@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs;
+package fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +10,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.bulwarkj.core.Coin;
+import org.fundinj.core.Coin;
 
 import java.io.Serializable;
 import java.util.List;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.utils.DialogsUtil;
 
 /**
  * Created by kaali on 8/4/17.
@@ -127,7 +127,7 @@ public class OutputsActivity extends BaseActivity {
                         outputWrapper.getAddressLabel()
                 );
                 addressLabel.addAddress(outputWrapper.getAddress());
-                bulwarkModule.saveContactIfNotExist(
+                fundinModule.saveContactIfNotExist(
                         addressLabel
                 );
             }

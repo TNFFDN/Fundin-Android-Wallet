@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="bulwark.org.bulwarkwallet">
+    package="fundin.org.fundinwallet">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".BulwarkApplication">
+        android:name=".FundinApplication">
         <activity android:name=".ui.splash_activity.SplashActivity"  android:screenOrientation="portrait">
 
         </activity>
@@ -90,11 +90,11 @@
             android:taskAffinity=""
             android:theme="@android:style/Theme.Dialog" />
 
-        <service android:name=".service.BulwarkWalletService" />
+        <service android:name=".service.FundinWalletService" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="bulwark.org.bulwarkwallet.myfileprovider"
+            android:authorities="fundin.org.fundinwallet.myfileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

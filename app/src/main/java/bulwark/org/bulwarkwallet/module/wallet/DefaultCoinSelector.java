@@ -1,13 +1,13 @@
-package bulwark.org.bulwarkwallet.module.wallet;
+package fundin.org.fundinwallet.module.wallet;
 
-import org.bulwarkj.core.Coin;
-import org.bulwarkj.core.NetworkParameters;
-import org.bulwarkj.core.Sha256Hash;
-import org.bulwarkj.core.Transaction;
-import org.bulwarkj.core.TransactionConfidence;
-import org.bulwarkj.core.TransactionOutput;
-import org.bulwarkj.wallet.CoinSelection;
-import org.bulwarkj.wallet.CoinSelector;
+import org.fundinj.core.Coin;
+import org.fundinj.core.NetworkParameters;
+import org.fundinj.core.Sha256Hash;
+import org.fundinj.core.Transaction;
+import org.fundinj.core.TransactionConfidence;
+import org.fundinj.core.TransactionOutput;
+import org.fundinj.wallet.CoinSelection;
+import org.fundinj.wallet.CoinSelector;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

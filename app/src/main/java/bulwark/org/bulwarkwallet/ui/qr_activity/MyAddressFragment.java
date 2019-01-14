@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.qr_activity;
+package fundin.org.fundinwallet.ui.qr_activity;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,16 +19,16 @@ import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 
-import org.bulwarkj.core.Address;
-import org.bulwarkj.uri.BulwarkURI;
+import org.fundinj.core.Address;
+import org.fundinj.uri.FundinURI;
 
-import bulwark.org.bulwarkwallet.BulwarkApplication;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkModule;
+import fundin.org.fundinwallet.FundinApplication;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinModule;
 
 import static android.graphics.Color.WHITE;
-import static bulwark.org.bulwarkwallet.utils.AndroidUtils.copyToClipboard;
-import static bulwark.org.bulwarkwallet.utils.QrUtils.encodeAsBitmap;
+import static fundin.org.fundinwallet.utils.AndroidUtils.copyToClipboard;
+import static fundin.org.fundinwallet.utils.QrUtils.encodeAsBitmap;
 
 /**
  * Created by kaali on 6/8/17.
@@ -36,7 +36,7 @@ import static bulwark.org.bulwarkwallet.utils.QrUtils.encodeAsBitmap;
 
 public class MyAddressFragment extends Fragment implements View.OnClickListener {
 
-    private BulwarkModule module;
+    private FundinModule module;
 
     private View root;
     private TextView txt_address;
@@ -46,16 +46,16 @@ public class MyAddressFragment extends Fragment implements View.OnClickListener 
 
     private Address address;
 
-    public static MyAddressFragment newInstance(BulwarkModule bulwarkModule) {
+    public static MyAddressFragment newInstance(FundinModule fundinModule) {
         MyAddressFragment f = new MyAddressFragment();
-        f.setModule(bulwarkModule);
+        f.setModule(fundinModule);
         return f;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        module = BulwarkApplication.getInstance().getModule();
+        module = FundinApplication.getInstance().getModule();
         root = inflater.inflate(R.layout.my_address,null);
         txt_address = (TextView) root.findViewById(R.id.txt_address);
         btn_share = (Button) root.findViewById(R.id.btn_share);
@@ -80,8 +80,8 @@ public class MyAddressFragment extends Fragment implements View.OnClickListener 
                 flag = true;
             }
             if (flag) {
-                String bulwarkUri = BulwarkURI.convertToBitcoinURI(address,null,"Receive address",null);
-                loadAddress(bulwarkUri,address.toBase58());
+                String fundinUri = FundinURI.convertToBitcoinURI(address,null,"Receive address",null);
+                loadAddress(fundinUri,address.toBase58());
             }
         }catch (WriterException e){
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class MyAddressFragment extends Fragment implements View.OnClickListener 
         }
 
     }
-    public void setModule(BulwarkModule module) {
+    public void setModule(FundinModule module) {
         this.module = module;
     }
 

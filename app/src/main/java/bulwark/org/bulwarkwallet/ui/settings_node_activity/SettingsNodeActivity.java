@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.settings_node_activity;
+package fundin.org.fundinwallet.ui.settings_node_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.WalletActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.wallet_activity.WalletActivity;
 
 /**
  * Created by Neoperol on 6/27/17.

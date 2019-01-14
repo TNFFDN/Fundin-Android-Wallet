@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bulwark.org.bulwarkwallet.utils.scanner;
+package fundin.org.fundinwallet.utils.scanner;
 
 import android.Manifest;
 import android.app.Activity;
@@ -60,8 +60,8 @@ import com.google.zxing.qrcode.QRCodeReader;
 import java.util.EnumMap;
 import java.util.Map;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.utils.DialogBuilder;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.utils.DialogBuilder;
 
 
 /**

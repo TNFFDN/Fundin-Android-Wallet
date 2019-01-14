@@ -96,7 +96,7 @@
     <string name="currency_message">Wähle die lokale Währung \n deiner Wahl</string>
     <string name="title_fee">Gebühren</string>
     <string name="title_currency">Lokale Währung</string>
-    <string name="title_bulwark_send">Betrag senden</string>
+    <string name="title_fundin_send">Betrag senden</string>
     <string name="empty_message_address">Du hast bisher keine gespeicherten Adressen.</string>
     <string name="error_message">Es scheint einen Fehler mit\n deiner Transaktion zu geben.</string>
     <string name="settings_change_trusted_node">Wechseln des vertrauenswürdigen Knoten</string>
@@ -107,7 +107,7 @@
     <string name="next">weiter</string>
     <string name="skip">überspringen</string>
     <string name="start">Start</string>
-    <string name="title_slide1">BWK ist Sicherheit</string>
+    <string name="title_slide1">FDN ist Sicherheit</string>
     <string name="desc_slide1">Erste Kryptowährung, die private Schlüssel mit BIP38 ent- bzw. verschlüsselt.</string>
     <string name="title_slide2">90 Sekunden Block-Zeit</string>
     <string name="desc_slide2">Obwohl BULWARK-Transaktionen ohnehin sehr schnell sind, werden sie unter Verwendung von SwiftTX sofort ausgeführt und brauchen KEINE Wartezeit zur Bestätigung. </string>

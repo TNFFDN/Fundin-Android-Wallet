@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.settings_network_activity;
+package fundin.org.fundinwallet.ui.settings_network_activity;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.Collections;
 import java.util.List;
 
-import bulwark.org.bulwarkwallet.R;
+import fundin.org.fundinwallet.R;
 
 /**
  * Created by Neoperol on 6/8/17.

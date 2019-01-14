@@ -71,7 +71,7 @@
         <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="bulwark.org.bulwarkwallet.ui.settings_pincode_activity.KeyboardFragment"
+            android:name="fundin.org.fundinwallet.ui.settings_pincode_activity.KeyboardFragment"
             android:id="@+id/fragment_keyboard"
             android:layout_centerInParent="true"
             />

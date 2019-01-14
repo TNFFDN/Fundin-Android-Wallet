@@ -1,12 +1,12 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs;
+package fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs;
 
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
 
 /**
  * Created by kaali on 8/4/17.

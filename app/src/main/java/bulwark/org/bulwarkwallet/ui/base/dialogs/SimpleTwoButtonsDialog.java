@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.base.dialogs;
+package fundin.org.fundinwallet.ui.base.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import bulwark.org.bulwarkwallet.R;
+import fundin.org.fundinwallet.R;
 
 import static android.view.View.GONE;
 

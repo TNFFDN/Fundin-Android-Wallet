@@ -1,10 +1,10 @@
-package bulwark.org.bulwarkwallet.utils;
+package fundin.org.fundinwallet.utils;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import bulwark.org.bulwarkwallet.ui.wallet_activity.WalletActivity;
+import fundin.org.fundinwallet.ui.wallet_activity.WalletActivity;
 
 /**
  * Created by kaali on 10/19/17.

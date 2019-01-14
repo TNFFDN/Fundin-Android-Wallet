@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.base;
+package fundin.org.fundinwallet.ui.base;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,21 +20,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import chain.BlockchainState;
-import bulwark.org.bulwarkwallet.BuildConfig;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.contacts_activity.ContactsActivity;
-import bulwark.org.bulwarkwallet.ui.donate.DonateActivity;
-import bulwark.org.bulwarkwallet.ui.settings_activity.SettingsActivity;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.WalletActivity;
+import fundin.org.fundinwallet.BuildConfig;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.contacts_activity.ContactsActivity;
+import fundin.org.fundinwallet.ui.donate.DonateActivity;
+import fundin.org.fundinwallet.ui.settings_activity.SettingsActivity;
+import fundin.org.fundinwallet.ui.wallet_activity.WalletActivity;
 
-import static bulwark.org.bulwarkwallet.module.BulwarkContext.OUT_OF_SYNC_TIME;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_NOTIFICATION;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_BLOCKCHAIN_STATE;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_PEER_CONNECTED;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_TYPE;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_EXTRA_BLOCKCHAIN_STATE;
+import static fundin.org.fundinwallet.module.FundinContext.OUT_OF_SYNC_TIME;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_NOTIFICATION;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_BLOCKCHAIN_STATE;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_PEER_CONNECTED;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_TYPE;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_EXTRA_BLOCKCHAIN_STATE;
 
-public class BaseDrawerActivity extends BulwarkActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseDrawerActivity extends FundinActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
     private FrameLayout frameLayout;
@@ -98,12 +98,12 @@ public class BaseDrawerActivity extends BulwarkActivity implements NavigationVie
 
     private void checkState(){
         long now = System.currentTimeMillis();
-        long lastBlockTime = bulwarkApplication.getAppConf().getLastBestChainBlockTime();
+        long lastBlockTime = fundinApplication.getAppConf().getLastBestChainBlockTime();
         if (lastBlockTime+OUT_OF_SYNC_TIME>now){
             // check if i'm syncing or i'm synched
-            long peerHeight = bulwarkModule.getConnectedPeerHeight();
+            long peerHeight = fundinModule.getConnectedPeerHeight();
             if (peerHeight!=-1){
-                if (bulwarkModule.getChainHeight()+10>peerHeight) {
+                if (fundinModule.getChainHeight()+10>peerHeight) {
                     blockchainState = BlockchainState.SYNC;
                 }else {
                     blockchainState = BlockchainState.SYNCING;
@@ -112,10 +112,10 @@ public class BaseDrawerActivity extends BulwarkActivity implements NavigationVie
                 blockchainState = BlockchainState.NOT_CONNECTION;
             }
         }else {
-            if (bulwarkModule.isAnyPeerConnected()) {
-                long peerHeight = bulwarkModule.getConnectedPeerHeight();
+            if (fundinModule.isAnyPeerConnected()) {
+                long peerHeight = fundinModule.getConnectedPeerHeight();
                 if (peerHeight!=-1){
-                    if (bulwarkModule.getChainHeight()+10>peerHeight) {
+                    if (fundinModule.getChainHeight()+10>peerHeight) {
                         blockchainState = BlockchainState.SYNC;
                     }else {
                         blockchainState = BlockchainState.SYNCING;
@@ -252,12 +252,12 @@ public class BaseDrawerActivity extends BulwarkActivity implements NavigationVie
     }
 
     private double calculateBlockchainSyncProgress() {
-        long nodeHeight = bulwarkModule.getConnectedPeerHeight();
+        long nodeHeight = fundinModule.getConnectedPeerHeight();
         if (nodeHeight>0){
             // calculate the progress
             // nodeHeight -> 100 %
             // current height -> x %
-            return (bulwarkModule.getChainHeight()*100) / nodeHeight;
+            return (fundinModule.getChainHeight()*100) / nodeHeight;
         }
         return -1;
     }

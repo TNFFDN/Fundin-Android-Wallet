@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.start_activity;
+package fundin.org.fundinwallet.ui.start_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.restore_activity.RestoreActivity;
-import bulwark.org.bulwarkwallet.ui.tutorial_activity.TutorialActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.restore_activity.RestoreActivity;
+import fundin.org.fundinwallet.ui.tutorial_activity.TutorialActivity;
 
-import static bulwark.org.bulwarkwallet.ui.restore_activity.RestoreActivity.ACTION_RESTORE_AND_JUMP_TO_WIZARD;
+import static fundin.org.fundinwallet.ui.restore_activity.RestoreActivity.ACTION_RESTORE_AND_JUMP_TO_WIZARD;
 
 /**
  * Created by mati on 18/04/17.
@@ -31,7 +31,7 @@ public class StartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 // Open Create Wallet
-                bulwarkModule.createWallet();
+                fundinModule.createWallet();
                 Intent myIntent = new Intent(v.getContext(), TutorialActivity.class);
                 startActivity(myIntent);
                 finish();

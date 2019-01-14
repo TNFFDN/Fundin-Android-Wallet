@@ -10,7 +10,7 @@
     android:paddingRight="12dp"
     android:paddingTop="20dp"
     android:gravity="center"
-    tools:context="bulwark.org.bulwarkwallet.ui.base.BaseDrawerActivity">
+    tools:context="fundin.org.fundinwallet.ui.base.BaseDrawerActivity">
 
 
     <ImageView

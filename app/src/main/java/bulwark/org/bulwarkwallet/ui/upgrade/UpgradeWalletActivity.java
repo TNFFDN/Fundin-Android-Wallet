@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.upgrade;
+package fundin.org.fundinwallet.ui.upgrade;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,16 +12,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.bulwarkj.core.InsufficientMoneyException;
+import org.fundinj.core.InsufficientMoneyException;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.UpgradeException;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTextDialog;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.UpgradeException;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTextDialog;
+import fundin.org.fundinwallet.utils.DialogsUtil;
 
 /**
  * Created by kaali on 10/8/17.
@@ -73,7 +73,7 @@ public class UpgradeWalletActivity extends BaseActivity {
         root.findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!bulwarkModule.isAnyPeerConnected()){
+                if (!fundinModule.isAnyPeerConnected()){
                     if (noConnectionDialog==null)
                         noConnectionDialog = DialogsUtil.buildSimpleTextDialog(
                                 UpgradeWalletActivity.this,
@@ -93,7 +93,7 @@ public class UpgradeWalletActivity extends BaseActivity {
                             boolean succed = false;
                             String message = null;
                             try {
-                                succed = bulwarkModule.upgradeWallet(upgradeCode);
+                                succed = fundinModule.upgradeWallet(upgradeCode);
                                 Log.i("UpgradeWallet", "wallet upgrade result: " + succed);
                             } catch (UpgradeException e) {
                                 e.printStackTrace();
@@ -108,7 +108,7 @@ public class UpgradeWalletActivity extends BaseActivity {
                                         new Handler().postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                bulwarkApplication.startBulwarkService();
+                                                fundinApplication.startFundinService();
                                             }
                                         }, TimeUnit.SECONDS.toMillis(3));
                                         Toast.makeText(UpgradeWalletActivity.this,

@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet;
+package fundin.org.fundinwallet;
 
 import org.junit.Test;
 

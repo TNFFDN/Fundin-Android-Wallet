@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.wallet_activity;
+package fundin.org.fundinwallet.ui.wallet_activity;
 
 /**
  * Created by Neoperol on 5/3/17.

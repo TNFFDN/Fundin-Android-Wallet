@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet;
+package fundin.org.fundinwallet;
 
 import com.google.protobuf.ByteString;
 
@@ -23,12 +23,12 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import bwktrum.messages.BaseMsg;
-import bwktrum.messages.GetBalanceMsg;
-import bwktrum.messages.GetHistoryMsg;
-import bwktrum.messages.Method;
-import bwktrum.messages.SubscribeAddressMsg;
-import bwktrum.messages.VersionMsg;
+import fdntrum.messages.BaseMsg;
+import fdntrum.messages.GetBalanceMsg;
+import fdntrum.messages.GetHistoryMsg;
+import fdntrum.messages.Method;
+import fdntrum.messages.SubscribeAddressMsg;
+import fdntrum.messages.VersionMsg;
 
 /**
  * Created by kaali on 6/5/17.

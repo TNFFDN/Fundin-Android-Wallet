@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.wallet_activity;
+package fundin.org.fundinwallet.ui.wallet_activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,39 +20,39 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.bulwarkj.core.Coin;
-import org.bulwarkj.core.InsufficientMoneyException;
-import org.bulwarkj.core.Transaction;
-import org.bulwarkj.uri.BulwarkURI;
-import org.bulwarkj.wallet.Wallet;
+import org.fundinj.core.Coin;
+import org.fundinj.core.InsufficientMoneyException;
+import org.fundinj.core.Transaction;
+import org.fundinj.uri.FundinURI;
+import org.fundinj.wallet.Wallet;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import bulwark.org.bulwarkwallet.BulwarkApplication;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.CantSweepBalanceException;
-import bulwark.org.bulwarkwallet.module.NoPeerConnectedException;
-import bulwark.org.bulwarkwallet.rate.db.BulwarkRate;
-import bulwark.org.bulwarkwallet.service.IntentsConstants;
-import bulwark.org.bulwarkwallet.ui.base.BaseDrawerActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.DialogListener;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTextDialog;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
-import bulwark.org.bulwarkwallet.ui.qr_activity.QrActivity;
-import bulwark.org.bulwarkwallet.ui.settings_backup_activity.SettingsBackupActivity;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.SendActivity;
-import bulwark.org.bulwarkwallet.ui.upgrade.UpgradeWalletActivity;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
-import bulwark.org.bulwarkwallet.utils.scanner.ScanActivity;
+import fundin.org.fundinwallet.FundinApplication;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.CantSweepBalanceException;
+import fundin.org.fundinwallet.module.NoPeerConnectedException;
+import fundin.org.fundinwallet.rate.db.FundinRate;
+import fundin.org.fundinwallet.service.IntentsConstants;
+import fundin.org.fundinwallet.ui.base.BaseDrawerActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.DialogListener;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTextDialog;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
+import fundin.org.fundinwallet.ui.qr_activity.QrActivity;
+import fundin.org.fundinwallet.ui.settings_backup_activity.SettingsBackupActivity;
+import fundin.org.fundinwallet.ui.transaction_send_activity.SendActivity;
+import fundin.org.fundinwallet.ui.upgrade.UpgradeWalletActivity;
+import fundin.org.fundinwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.utils.scanner.ScanActivity;
 
 import static android.Manifest.permission.CAMERA;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.ACTION_NOTIFICATION;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_ON_COIN_RECEIVED;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_TYPE;
-import static bulwark.org.bulwarkwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
+import static fundin.org.fundinwallet.service.IntentsConstants.ACTION_NOTIFICATION;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_ON_COIN_RECEIVED;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_TYPE;
+import static fundin.org.fundinwallet.utils.scanner.ScanActivity.INTENT_EXTRA_RESULT;
 
 /**
  * Created by Neoperol on 5/11/17.
@@ -70,14 +70,14 @@ public class WalletActivity extends BaseDrawerActivity {
     private TextView txt_unnavailable;
     private TextView txt_local_currency;
     private TextView txt_watch_only;
-    private BulwarkRate bulwarkRate;
+    private FundinRate fundinRate;
     private TransactionsFragmentBase txsFragment;
 
     // Receiver
     private LocalBroadcastManager localBroadcastManager;
 
-    private IntentFilter bulwarkServiceFilter = new IntentFilter(ACTION_NOTIFICATION);
-    private BroadcastReceiver bulwarkServiceReceiver = new BroadcastReceiver() {
+    private IntentFilter fundinServiceFilter = new IntentFilter(ACTION_NOTIFICATION);
+    private BroadcastReceiver fundinServiceReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -108,7 +108,7 @@ public class WalletActivity extends BaseDrawerActivity {
     protected void onCreateView(Bundle savedInstanceState, ViewGroup container) {
         setTitle(R.string.my_wallet);
         root = getLayoutInflater().inflate(R.layout.fragment_wallet, container);
-        View containerHeader = getLayoutInflater().inflate(R.layout.fragment_bulwark_amount,header_container);
+        View containerHeader = getLayoutInflater().inflate(R.layout.fragment_fundin_amount,header_container);
         header_container.setVisibility(View.VISIBLE);
         txt_value = (TextView) containerHeader.findViewById(R.id.pivValue);
         txt_unnavailable = (TextView) containerHeader.findViewById(R.id.txt_unnavailable);
@@ -121,7 +121,7 @@ public class WalletActivity extends BaseDrawerActivity {
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bulwarkModule.isWalletWatchOnly()){
+                if (fundinModule.isWalletWatchOnly()){
                     Toast.makeText(v.getContext(),R.string.error_watch_only_mode,Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -142,15 +142,15 @@ public class WalletActivity extends BaseDrawerActivity {
         init();
 
         // register
-        localBroadcastManager.registerReceiver(bulwarkServiceReceiver,bulwarkServiceFilter);
+        localBroadcastManager.registerReceiver(fundinServiceReceiver,fundinServiceFilter);
 
         updateState();
         updateBalance();
 
         // check if this wallet need an update:
         try {
-            if(bulwarkModule.isBip32Wallet() && bulwarkModule.isSyncWithNode()){
-                if (!bulwarkModule.isWalletWatchOnly() && bulwarkModule.getAvailableBalanceCoin().isGreaterThan(Transaction.DEFAULT_TX_FEE)) {
+            if(fundinModule.isBip32Wallet() && fundinModule.isSyncWithNode()){
+                if (!fundinModule.isWalletWatchOnly() && fundinModule.getAvailableBalanceCoin().isGreaterThan(Transaction.DEFAULT_TX_FEE)) {
                     Intent intent = UpgradeWalletActivity.createStartIntent(
                             this,
                             getString(R.string.upgrade_wallet),
@@ -173,17 +173,17 @@ public class WalletActivity extends BaseDrawerActivity {
     }
 
     private void updateState() {
-        txt_watch_only.setVisibility(bulwarkModule.isWalletWatchOnly()?View.VISIBLE:View.GONE);
+        txt_watch_only.setVisibility(fundinModule.isWalletWatchOnly()?View.VISIBLE:View.GONE);
     }
 
     private void init() {
         // Start service if it's not started.
-        bulwarkApplication.startBulwarkService();
+        fundinApplication.startFundinService();
 
-        if (!bulwarkApplication.getAppConf().hasBackup()){
+        if (!fundinApplication.getAppConf().hasBackup()){
             long now = System.currentTimeMillis();
-            if (bulwarkApplication.getLastTimeRequestedBackup()+1800000L<now) {
-                bulwarkApplication.setLastTimeBackupRequested(now);
+            if (fundinApplication.getLastTimeRequestedBackup()+1800000L<now) {
+                fundinApplication.setLastTimeBackupRequested(now);
                 SimpleTwoButtonsDialog reminderDialog = DialogsUtil.buildSimpleTwoBtnsDialog(
                         this,
                         getString(R.string.reminder_backup),
@@ -214,7 +214,7 @@ public class WalletActivity extends BaseDrawerActivity {
         super.onStop();
         // unregister
         //localBroadcastManager.unregisterReceiver(localReceiver);
-        localBroadcastManager.unregisterReceiver(bulwarkServiceReceiver);
+        localBroadcastManager.unregisterReceiver(fundinServiceReceiver);
     }
 
     @Override
@@ -249,19 +249,19 @@ public class WalletActivity extends BaseDrawerActivity {
 
         List<TransactionData> data = new ArrayList<>();
 
-        data.add(new TransactionData("Sent Bulwark", "18:23", R.mipmap.ic_transaction_receive,"56.32", "701 USD" ));
-        data.add(new TransactionData("Sent Bulwark", "1 days ago", R.mipmap.ic_transaction_send,"56.32", "701 USD"));
-        data.add(new TransactionData("Sent Bulwark", "2 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
-        data.add(new TransactionData("Sent Bulwark", "2 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
-        data.add(new TransactionData("Sent Bulwark", "3 days ago", R.mipmap.ic_transaction_send,"56.32", "701 USD"));
-        data.add(new TransactionData("Sent Bulwark", "3 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "18:23", R.mipmap.ic_transaction_receive,"56.32", "701 USD" ));
+        data.add(new TransactionData("Sent Fundin", "1 days ago", R.mipmap.ic_transaction_send,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "2 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "2 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "3 days ago", R.mipmap.ic_transaction_send,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "3 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
 
-        data.add(new TransactionData("Sent Bulwark", "4 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
-        data.add(new TransactionData("Sent Bulwark", "4 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
-        data.add(new TransactionData("Sent Bulwark", "one week ago", R.mipmap.ic_transaction_send,"56.32", "701 USD"));
-        data.add(new TransactionData("Sent Bulwark", "one week ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
-        data.add(new TransactionData("Sent Bulwark", "one week ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
-        data.add(new TransactionData("Sent Bulwark", "one week ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD" ));
+        data.add(new TransactionData("Sent Fundin", "4 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "4 days ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "one week ago", R.mipmap.ic_transaction_send,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "one week ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "one week ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD"));
+        data.add(new TransactionData("Sent Fundin", "one week ago", R.mipmap.ic_transaction_receive,"56.32", "701 USD" ));
 
         return data;
     }
@@ -273,11 +273,11 @@ public class WalletActivity extends BaseDrawerActivity {
                 try {
                     String address = data.getStringExtra(INTENT_EXTRA_RESULT);
                     String usedAddress;
-                    if (bulwarkModule.chechAddress(address)){
+                    if (fundinModule.chechAddress(address)){
                         usedAddress = address;
                     }else {
-                        BulwarkURI bulwarkUri = new BulwarkURI(address);
-                        usedAddress = bulwarkUri.getAddress().toBase58();
+                        FundinURI fundinUri = new FundinURI(address);
+                        usedAddress = fundinUri.getAddress().toBase58();
                     }
                     DialogsUtil.showCreateAddressLabelDialog(this,usedAddress);
                 }catch (Exception e){
@@ -299,18 +299,18 @@ public class WalletActivity extends BaseDrawerActivity {
 
 
     private void updateBalance() {
-        Coin availableBalance = bulwarkModule.getAvailableBalanceCoin();
-        txt_value.setText(!availableBalance.isZero()?availableBalance.toFriendlyString():"0 BWK");
-        Coin unnavailableBalance = bulwarkModule.getUnnavailableBalanceCoin();
-        txt_unnavailable.setText(!unnavailableBalance.isZero()?unnavailableBalance.toFriendlyString():"0 BWK");
-        if (bulwarkRate == null)
-            bulwarkRate = bulwarkModule.getRate(bulwarkApplication.getAppConf().getSelectedRateCoin());
-        if (bulwarkRate!=null) {
+        Coin availableBalance = fundinModule.getAvailableBalanceCoin();
+        txt_value.setText(!availableBalance.isZero()?availableBalance.toFriendlyString():"0 FDN");
+        Coin unnavailableBalance = fundinModule.getUnnavailableBalanceCoin();
+        txt_unnavailable.setText(!unnavailableBalance.isZero()?unnavailableBalance.toFriendlyString():"0 FDN");
+        if (fundinRate == null)
+            fundinRate = fundinModule.getRate(fundinApplication.getAppConf().getSelectedRateCoin());
+        if (fundinRate!=null) {
             txt_local_currency.setText(
-                    bulwarkApplication.getCentralFormats().format(
-                            new BigDecimal(availableBalance.getValue() * bulwarkRate.getValue().doubleValue()).movePointLeft(8)
+                    fundinApplication.getCentralFormats().format(
+                            new BigDecimal(availableBalance.getValue() * fundinRate.getValue().doubleValue()).movePointLeft(8)
                     )
-                    + " "+bulwarkRate.getCoin()
+                    + " "+fundinRate.getCoin()
             );
         }else {
             txt_local_currency.setText("0 USD");

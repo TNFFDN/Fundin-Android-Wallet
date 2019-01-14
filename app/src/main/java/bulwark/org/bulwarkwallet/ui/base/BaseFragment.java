@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.base;
+package fundin.org.fundinwallet.ui.base;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
-import bulwark.org.bulwarkwallet.BulwarkApplication;
-import bulwark.org.bulwarkwallet.module.BulwarkModule;
+import fundin.org.fundinwallet.FundinApplication;
+import fundin.org.fundinwallet.module.FundinModule;
 
 /**
  * Created by kaali on 6/29/17.
@@ -15,14 +15,14 @@ import bulwark.org.bulwarkwallet.module.BulwarkModule;
 
 public class BaseFragment extends Fragment {
 
-    protected BulwarkApplication bulwarkApplication;
-    protected BulwarkModule bulwarkModule;
+    protected FundinApplication fundinApplication;
+    protected FundinModule fundinModule;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bulwarkApplication = BulwarkApplication.getInstance();
-        bulwarkModule = bulwarkApplication.getModule();
+        fundinApplication = FundinApplication.getInstance();
+        fundinModule = fundinApplication.getModule();
     }
 
     protected boolean checkPermission(String permission) {

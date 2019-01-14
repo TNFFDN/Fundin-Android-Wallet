@@ -6,7 +6,7 @@
     android:paddingTop="40dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="bulwark.org.bulwarkwallet.ui.base.BaseDrawerActivity">
+    tools:context="fundin.org.fundinwallet.ui.base.BaseDrawerActivity">
 
     <LinearLayout
         android:orientation="vertical"

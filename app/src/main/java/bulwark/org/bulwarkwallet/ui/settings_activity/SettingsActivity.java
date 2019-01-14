@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.settings_activity;
+package fundin.org.fundinwallet.ui.settings_activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,30 +20,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import chain.BlockchainState;
-import bulwark.org.bulwarkwallet.BuildConfig;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
-import bulwark.org.bulwarkwallet.ui.base.BaseDrawerActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
-import bulwark.org.bulwarkwallet.ui.export_account.ExportKeyActivity;
-import bulwark.org.bulwarkwallet.ui.import_watch_only.SettingsWatchOnly;
-import bulwark.org.bulwarkwallet.ui.restore_activity.RestoreActivity;
-import bulwark.org.bulwarkwallet.ui.settings_backup_activity.SettingsBackupActivity;
-import bulwark.org.bulwarkwallet.ui.settings_network_activity.SettingsNetworkActivity;
-import bulwark.org.bulwarkwallet.ui.settings_pincode_activity.SettingsPincodeActivity;
-import bulwark.org.bulwarkwallet.ui.start_node_activity.StartNodeActivity;
-import bulwark.org.bulwarkwallet.ui.tutorial_activity.TutorialActivity;
-import bulwark.org.bulwarkwallet.utils.CrashReporter;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
-import bulwark.org.bulwarkwallet.utils.IntentsUtils;
-import bulwark.org.bulwarkwallet.utils.NavigationUtils;
-import bulwark.org.bulwarkwallet.utils.ReportIssueDialogBuilder;
+import fundin.org.fundinwallet.BuildConfig;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinContext;
+import fundin.org.fundinwallet.ui.base.BaseDrawerActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
+import fundin.org.fundinwallet.ui.export_account.ExportKeyActivity;
+import fundin.org.fundinwallet.ui.import_watch_only.SettingsWatchOnly;
+import fundin.org.fundinwallet.ui.restore_activity.RestoreActivity;
+import fundin.org.fundinwallet.ui.settings_backup_activity.SettingsBackupActivity;
+import fundin.org.fundinwallet.ui.settings_network_activity.SettingsNetworkActivity;
+import fundin.org.fundinwallet.ui.settings_pincode_activity.SettingsPincodeActivity;
+import fundin.org.fundinwallet.ui.start_node_activity.StartNodeActivity;
+import fundin.org.fundinwallet.ui.tutorial_activity.TutorialActivity;
+import fundin.org.fundinwallet.utils.CrashReporter;
+import fundin.org.fundinwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.utils.IntentsUtils;
+import fundin.org.fundinwallet.utils.NavigationUtils;
+import fundin.org.fundinwallet.utils.ReportIssueDialogBuilder;
 
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_BLOCKCHAIN_STATE;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_PEER_CONNECTED;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_TYPE;
-import static bulwark.org.bulwarkwallet.service.IntentsConstants.INTENT_EXTRA_BLOCKCHAIN_STATE;
-import static bulwark.org.bulwarkwallet.ui.tutorial_activity.TutorialActivity.INTENT_EXTRA_INFO_TUTORIAL;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_BLOCKCHAIN_STATE;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_PEER_CONNECTED;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_BROADCAST_DATA_TYPE;
+import static fundin.org.fundinwallet.service.IntentsConstants.INTENT_EXTRA_BLOCKCHAIN_STATE;
+import static fundin.org.fundinwallet.ui.tutorial_activity.TutorialActivity.INTENT_EXTRA_INFO_TUTORIAL;
 
 /**
  * Created by Neoperol on 5/11/17.
@@ -130,11 +130,11 @@ public class SettingsActivity extends BaseDrawerActivity implements View.OnClick
     private void updateNetworkStatus() {
         txt_network_info.setText(
                 Html.fromHtml(
-                        "Network<br><font color=#0098FF>"+bulwarkModule.getConf().getNetworkParams().getId()+
+                        "Network<br><font color=#0098FF>"+fundinModule.getConf().getNetworkParams().getId()+
                                 "</font><br>" +
-                                "Height<br><font color=#0098FF>"+bulwarkModule.getChainHeight()+"</font><br>" +
+                                "Height<br><font color=#0098FF>"+fundinModule.getChainHeight()+"</font><br>" +
                                 "Protocol Version<br><font color=#0098FF>"+
-                                bulwarkModule.getProtocolVersion()+"</font>"
+                                fundinModule.getProtocolVersion()+"</font>"
 
                 )
         );
@@ -186,7 +186,7 @@ public class SettingsActivity extends BaseDrawerActivity implements View.OnClick
                 new SimpleTwoButtonsDialog.SimpleTwoBtnsDialogListener() {
                     @Override
                     public void onRightBtnClicked(SimpleTwoButtonsDialog dialog) {
-                        bulwarkApplication.stopBlockchain();
+                        fundinApplication.stopBlockchain();
                         Toast.makeText(SettingsActivity.this,R.string.reseting_blockchain,Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }
@@ -205,21 +205,21 @@ public class SettingsActivity extends BaseDrawerActivity implements View.OnClick
     private void launchReportDialog() {
         ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(
                 this,
-                "bulwark.org.bulwarkwallet.myfileprovider",
+                "fundin.org.fundinwallet.myfileprovider",
                 R.string.report_issuea_dialog_title,
                 R.string.report_issue_dialog_message_issue)
         {
             @Nullable
             @Override
             protected CharSequence subject() {
-                return BulwarkContext.REPORT_SUBJECT_ISSUE+" "+bulwarkApplication.getVersionName();
+                return FundinContext.REPORT_SUBJECT_ISSUE+" "+fundinApplication.getVersionName();
             }
 
             @Nullable
             @Override
             protected CharSequence collectApplicationInfo() throws IOException {
                 final StringBuilder applicationInfo = new StringBuilder();
-                CrashReporter.appendApplicationInfo(applicationInfo, bulwarkApplication);
+                CrashReporter.appendApplicationInfo(applicationInfo, fundinApplication);
                 return applicationInfo;
             }
 
@@ -240,7 +240,7 @@ public class SettingsActivity extends BaseDrawerActivity implements View.OnClick
             @Nullable
             @Override
             protected CharSequence collectWalletDump() throws IOException {
-                return bulwarkModule.getWallet().toString(false,true,true,null);
+                return fundinModule.getWallet().toString(false,true,true,null);
             }
         };
         dialog.show();

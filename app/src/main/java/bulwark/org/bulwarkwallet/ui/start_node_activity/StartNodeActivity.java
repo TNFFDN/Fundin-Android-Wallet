@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.start_node_activity;
+package fundin.org.fundinwallet.ui.start_node_activity;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import global.BwktrumGlobalData;
-import bwktrum.BwktrumPeer;
-import bwktrum.BwktrumPeerData;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.pincode_activity.PincodeActivity;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.WalletActivity;
-import bulwark.org.bulwarkwallet.utils.DialogBuilder;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
+import fdntrum.BwktrumPeer;
+import fdntrum.BwktrumPeerData;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.pincode_activity.PincodeActivity;
+import fundin.org.fundinwallet.ui.wallet_activity.WalletActivity;
+import fundin.org.fundinwallet.utils.DialogBuilder;
+import fundin.org.fundinwallet.utils.DialogsUtil;
 
 import static global.BwktrumGlobalData.KAALI_TESTNET_SERVER;
 
@@ -58,15 +58,15 @@ public class StartNodeActivity extends BaseActivity {
             public void onClick(View view) {
                 DialogBuilder dialogBuilder = DialogsUtil.buildtrustedNodeDialog(StartNodeActivity.this, new DialogsUtil.TrustedNodeDialogListener() {
                     @Override
-                    public void onNodeSelected(BwktrumPeerData bwktrumPeerData) {
-                        if(!trustedNodes.contains(bwktrumPeerData)) {
+                    public void onNodeSelected(BwktrumPeerData fdntrumPeerData) {
+                        if(!trustedNodes.contains(fdntrumPeerData)) {
                             dropdown.setAdapter(null);
                             adapter.clear();
                             hosts = new ArrayList<String>();
-                            trustedNodes.add(bwktrumPeerData);
+                            trustedNodes.add(fdntrumPeerData);
                             for (BwktrumPeerData trustedNode : trustedNodes) {
                                 if (trustedNode.getHost().equals(KAALI_TESTNET_SERVER)) {
-                                    hosts.add("node1.bulwarkcrypto.com");
+                                    hosts.add("node1.fundincrypto.com");
                                 } else
                                     hosts.add(trustedNode.getHost());
                             }
@@ -88,16 +88,16 @@ public class StartNodeActivity extends BaseActivity {
             public void onClick(View v) {
                 int selected = dropdown.getSelectedItemPosition();
                 BwktrumPeerData selectedNode = trustedNodes.get(selected);
-                boolean isStarted = bulwarkApplication.getAppConf().getTrustedNode()!=null;
-                bulwarkApplication.setTrustedServer(selectedNode);
+                boolean isStarted = fundinApplication.getAppConf().getTrustedNode()!=null;
+                fundinApplication.setTrustedServer(selectedNode);
 
                 if (isStarted){
-                    bulwarkApplication.stopBlockchain();
+                    fundinApplication.stopBlockchain();
                     // now that everything is good, start the service
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            bulwarkApplication.startBulwarkService();
+                            fundinApplication.startFundinService();
                         }
                     }, TimeUnit.SECONDS.toMillis(5));
                 }
@@ -109,20 +109,20 @@ public class StartNodeActivity extends BaseActivity {
         dropdown = (Spinner)findViewById(R.id.spinner);
 
         // add connected node if it's not on the list
-        BwktrumPeerData bwktrumPeer = bulwarkApplication.getAppConf().getTrustedNode();
-        if (bwktrumPeer!=null && !bwktrumPeer.getHost().equals(KAALI_TESTNET_SERVER)){
-            trustedNodes.add(bwktrumPeer);
+        BwktrumPeerData fdntrumPeer = fundinApplication.getAppConf().getTrustedNode();
+        if (fdntrumPeer!=null && !fdntrumPeer.getHost().equals(KAALI_TESTNET_SERVER)){
+            trustedNodes.add(fdntrumPeer);
         }
 
         int selectionPos = 0;
 
         for (int i=0;i<trustedNodes.size();i++){
             BwktrumPeerData trustedNode = trustedNodes.get(i);
-            if (bwktrumPeer!=null && bwktrumPeer.getHost().equals(trustedNode)){
+            if (fdntrumPeer!=null && fdntrumPeer.getHost().equals(trustedNode)){
                 selectionPos = i;
             }
             if (trustedNode.getHost().equals(KAALI_TESTNET_SERVER)){
-                hosts.add("node1.bulwarkcrypto.com");
+                hosts.add("node1.fundincrypto.com");
             }else
                 hosts.add(trustedNode.getHost());
         }
@@ -150,7 +150,7 @@ public class StartNodeActivity extends BaseActivity {
 
     private void goNext() {
         Class clazz = null;
-        if (bulwarkApplication.getAppConf().getPincode()==null){
+        if (fundinApplication.getAppConf().getPincode()==null){
             clazz = PincodeActivity.class;
         }else {
             clazz = WalletActivity.class;

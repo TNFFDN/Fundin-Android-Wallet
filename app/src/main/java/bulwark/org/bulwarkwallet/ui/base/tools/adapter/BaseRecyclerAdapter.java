@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.base.tools.adapter;
+package fundin.org.fundinwallet.ui.base.tools.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

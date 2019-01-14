@@ -23,7 +23,7 @@
             android:id="@+id/txt_total_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3.13 BWK"
+            android:text="3.13 FDN"
             android:textColor="@color/mainText" />
     </LinearLayout>
 
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/multiple_addresses_fragment"
-        android:name="bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs.MultipleOutputsFragment"
+        android:name="fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs.MultipleOutputsFragment"
 
         />
 

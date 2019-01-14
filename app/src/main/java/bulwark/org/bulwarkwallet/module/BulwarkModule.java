@@ -1,17 +1,17 @@
-package bulwark.org.bulwarkwallet.module;
+package fundin.org.fundinwallet.module;
 
-import org.bulwarkj.core.Address;
-import org.bulwarkj.core.Coin;
-import org.bulwarkj.core.InsufficientMoneyException;
-import org.bulwarkj.core.Peer;
-import org.bulwarkj.core.Sha256Hash;
-import org.bulwarkj.core.Transaction;
-import org.bulwarkj.core.TransactionInput;
-import org.bulwarkj.core.TransactionOutput;
-import org.bulwarkj.crypto.DeterministicKey;
-import org.bulwarkj.crypto.MnemonicException;
-import org.bulwarkj.wallet.DeterministicKeyChain;
-import org.bulwarkj.wallet.Wallet;
+import org.fundinj.core.Address;
+import org.fundinj.core.Coin;
+import org.fundinj.core.InsufficientMoneyException;
+import org.fundinj.core.Peer;
+import org.fundinj.core.Sha256Hash;
+import org.fundinj.core.Transaction;
+import org.fundinj.core.TransactionInput;
+import org.fundinj.core.TransactionOutput;
+import org.fundinj.crypto.DeterministicKey;
+import org.fundinj.crypto.MnemonicException;
+import org.fundinj.wallet.DeterministicKeyChain;
+import org.fundinj.wallet.Wallet;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.Set;
 
 import global.WalletConfiguration;
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
-import bulwark.org.bulwarkwallet.rate.db.BulwarkRate;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.inputs.InputWrapper;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.TransactionWrapper;
+import fundin.org.fundinwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.rate.db.FundinRate;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.inputs.InputWrapper;
+import fundin.org.fundinwallet.ui.wallet_activity.TransactionWrapper;
 import wallet.exceptions.InsufficientInputsException;
 import wallet.exceptions.TxNotFoundException;
 import wallet.exceptions.CantRestoreEncryptedWallet;
@@ -33,7 +33,7 @@ import wallet.exceptions.CantRestoreEncryptedWallet;
  * Created by mati on 18/04/17.
  */
 
-public interface BulwarkModule {
+public interface FundinModule {
 
     /**
      * Initialize the module
@@ -114,7 +114,7 @@ public interface BulwarkModule {
 
     int getChainHeight();
 
-    BulwarkRate getRate(String selectedRateCoin);
+    FundinRate getRate(String selectedRateCoin);
 
     /**
      * Don't use this..

@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.module;
+package fundin.org.fundinwallet.module;
 
 /**
  * Created by kaali on 10/8/17.

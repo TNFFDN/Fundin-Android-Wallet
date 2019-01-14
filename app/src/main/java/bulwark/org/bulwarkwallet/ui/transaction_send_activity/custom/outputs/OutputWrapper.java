@@ -1,6 +1,6 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs;
+package fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs;
 
-import org.bulwarkj.core.Coin;
+import org.fundinj.core.Coin;
 
 import java.io.Serializable;
 

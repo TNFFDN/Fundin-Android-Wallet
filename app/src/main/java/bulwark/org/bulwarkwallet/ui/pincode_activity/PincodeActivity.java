@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.pincode_activity;
+package fundin.org.fundinwallet.ui.pincode_activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.Random;
 
 import global.BwktrumGlobalData;
-import bwktrum.BwktrumPeerData;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.backup_mnemonic_activity.MnemonicActivity;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.settings_pincode_activity.KeyboardFragment;
-import bulwark.org.bulwarkwallet.ui.start_activity.StartActivity;
+import fdntrum.BwktrumPeerData;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.backup_mnemonic_activity.MnemonicActivity;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.settings_pincode_activity.KeyboardFragment;
+import fundin.org.fundinwallet.ui.start_activity.StartActivity;
 
-import static bulwark.org.bulwarkwallet.ui.backup_mnemonic_activity.MnemonicActivity.INTENT_EXTRA_INIT_VIEW;
+import static fundin.org.fundinwallet.ui.backup_mnemonic_activity.MnemonicActivity.INTENT_EXTRA_INIT_VIEW;
 
 /**
  * Created by Neoperol on 4/20/17.
@@ -44,7 +44,7 @@ public class PincodeActivity extends BaseActivity implements KeyboardFragment.on
             checkPin = true;
         }
 
-        if (bulwarkApplication.getAppConf().getPincode()!=null && !checkPin){
+        if (fundinApplication.getAppConf().getPincode()!=null && !checkPin){
             goNext();
             finish();
         }
@@ -64,15 +64,15 @@ public class PincodeActivity extends BaseActivity implements KeyboardFragment.on
     }
 
     private void goNext() {
-        if (bulwarkApplication.getAppConf().getTrustedNode()==null){
+        if (fundinApplication.getAppConf().getTrustedNode()==null){
             // select random trusted node
             List<BwktrumPeerData> nodes = BwktrumGlobalData.listTrustedHosts();
             Random random = new Random();
-            bulwarkApplication.setTrustedServer(nodes.get(random.nextInt(nodes.size())));
-            bulwarkApplication.stopBlockchain();
+            fundinApplication.setTrustedServer(nodes.get(random.nextInt(nodes.size())));
+            fundinApplication.stopBlockchain();
         }
 
-        bulwarkApplication.getAppConf().setAppInit(true);
+        fundinApplication.getAppConf().setAppInit(true);
 
         Intent myIntent = new Intent(PincodeActivity.this,MnemonicActivity.class);
         myIntent.putExtra(INTENT_EXTRA_INIT_VIEW,true);
@@ -92,12 +92,12 @@ public class PincodeActivity extends BaseActivity implements KeyboardFragment.on
                     String pincode = String.valueOf(pin[0]) + String.valueOf(pin[1]) + String.valueOf(pin[2]) + String.valueOf(pin[3]);
 
                     if (!checkPin) {
-                        bulwarkApplication.getAppConf().savePincode(pincode);
+                        fundinApplication.getAppConf().savePincode(pincode);
                         Toast.makeText(this, R.string.pincode_saved, Toast.LENGTH_SHORT).show();
                         goNext();
                     }else {
                         // check pin and return result
-                        if(bulwarkApplication.getAppConf().getPincode().equals(pincode)){
+                        if(fundinApplication.getAppConf().getPincode().equals(pincode)){
                             Intent intent = new Intent();
                             setResult(Activity.RESULT_OK, intent);
                             finish();
@@ -122,7 +122,7 @@ public class PincodeActivity extends BaseActivity implements KeyboardFragment.on
     public void onBackPressed() {
         super.onBackPressed();
         // todo: controlar esto
-        if (bulwarkApplication.getAppConf().getPincode()==null){
+        if (fundinApplication.getAppConf().getPincode()==null){
             startActivity(new Intent(this, StartActivity.class));
             finish();
         }

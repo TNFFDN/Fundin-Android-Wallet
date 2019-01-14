@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.module.store;
+package fundin.org.fundinwallet.module.store;
 
 import android.content.Context;
 

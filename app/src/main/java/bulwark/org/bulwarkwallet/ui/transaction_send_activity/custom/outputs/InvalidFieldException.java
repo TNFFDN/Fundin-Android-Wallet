@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.outputs;
+package fundin.org.fundinwallet.ui.transaction_send_activity.custom.outputs;
 
 /**
  * Created by kaali on 8/9/17.

@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.restore_activity;
+package fundin.org.fundinwallet.ui.restore_activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -35,14 +35,14 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.DialogListener;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTextDialog;
-import bulwark.org.bulwarkwallet.ui.tutorial_activity.TutorialActivity;
-import bulwark.org.bulwarkwallet.ui.words_restore_activity.RestoreWordsActivity;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinContext;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.DialogListener;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTextDialog;
+import fundin.org.fundinwallet.ui.tutorial_activity.TutorialActivity;
+import fundin.org.fundinwallet.ui.words_restore_activity.RestoreWordsActivity;
+import fundin.org.fundinwallet.utils.DialogsUtil;
 import wallet.Crypto;
 import wallet.WalletUtils;
 import wallet.exceptions.CantRestoreEncryptedWallet;
@@ -114,7 +114,7 @@ public class RestoreActivity extends BaseActivity {
             @Override
             public View getDropDownView(int position, View row, ViewGroup parent) {
                 final File file = getItem(position);
-                final boolean isExternal = BulwarkContext.Files.EXTERNAL_WALLET_BACKUP_DIR.equals(file.getParentFile());
+                final boolean isExternal = FundinContext.Files.EXTERNAL_WALLET_BACKUP_DIR.equals(file.getParentFile());
                 final boolean isEncrypted = Crypto.OPENSSL_FILE_FILTER.accept(file);
 
                 if (row == null)
@@ -140,8 +140,8 @@ public class RestoreActivity extends BaseActivity {
             }
         };
         final String path;
-        final String backupPath = BulwarkContext.Files.EXTERNAL_WALLET_BACKUP_DIR.getAbsolutePath();
-        final String storagePath = BulwarkContext.Files.EXTERNAL_STORAGE_DIR.getAbsolutePath();
+        final String backupPath = FundinContext.Files.EXTERNAL_WALLET_BACKUP_DIR.getAbsolutePath();
+        final String storagePath = FundinContext.Files.EXTERNAL_STORAGE_DIR.getAbsolutePath();
         if (backupPath.startsWith(storagePath))
             path = backupPath.substring(storagePath.length());
         else
@@ -169,16 +169,16 @@ public class RestoreActivity extends BaseActivity {
                 @Override
                 public void run() {
                     try {
-                        org.bulwarkj.core.Context.propagate(BulwarkContext.CONTEXT);
+                        org.fundinj.core.Context.propagate(FundinContext.CONTEXT);
                         File file = (File) spinnerFiles.getSelectedItem();
                         if (WalletUtils.BACKUP_FILE_FILTER.accept(file)) {
-                            bulwarkModule.restoreWallet(file);
+                            fundinModule.restoreWallet(file);
                             showRestoreSucced();
                         } else if (KEYS_FILE_FILTER.accept(file)) {
                             //module.restorePrivateKeysFromBase58(file);
                         } else if (Crypto.OPENSSL_FILE_FILTER.accept(file)) {
                             try {
-                                bulwarkModule.restoreWalletFromEncrypted(file, password);
+                                fundinModule.restoreWalletFromEncrypted(file, password);
                                 showRestoreSucced();
                             } catch (final CantRestoreEncryptedWallet x) {
                                 runOnUiThread(new Runnable() {
@@ -266,7 +266,7 @@ public class RestoreActivity extends BaseActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            bulwarkApplication.startBulwarkService();
+                            fundinApplication.startFundinService();
                         }
                     }, TimeUnit.SECONDS.toMillis(5));
                 }
@@ -279,8 +279,8 @@ public class RestoreActivity extends BaseActivity {
         files.clear();
 
         // external storage
-        if (BulwarkContext.Files.EXTERNAL_WALLET_BACKUP_DIR.exists() && BulwarkContext.Files.EXTERNAL_WALLET_BACKUP_DIR.isDirectory()) {
-            File[] fileArray = BulwarkContext.Files.EXTERNAL_WALLET_BACKUP_DIR.listFiles();
+        if (FundinContext.Files.EXTERNAL_WALLET_BACKUP_DIR.exists() && FundinContext.Files.EXTERNAL_WALLET_BACKUP_DIR.isDirectory()) {
+            File[] fileArray = FundinContext.Files.EXTERNAL_WALLET_BACKUP_DIR.listFiles();
             if (fileArray!=null) {
                 for (final File file : fileArray)
                     if (Crypto.OPENSSL_FILE_FILTER.accept(file))
@@ -289,7 +289,7 @@ public class RestoreActivity extends BaseActivity {
         }
         // internal storage
         for (final String filename : fileList())
-            if (filename.startsWith(BulwarkContext.Files.WALLET_KEY_BACKUP_PROTOBUF + '.'))
+            if (filename.startsWith(FundinContext.Files.WALLET_KEY_BACKUP_PROTOBUF + '.'))
                 files.add(new File(getFilesDir(), filename));
 
         // sort
@@ -373,7 +373,7 @@ public class RestoreActivity extends BaseActivity {
             try {
                 if (file==null)return false;
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
-                WalletUtils.readKeys(reader, BulwarkContext.NETWORK_PARAMETERS,BulwarkContext.BACKUP_MAX_CHARS);
+                WalletUtils.readKeys(reader, FundinContext.NETWORK_PARAMETERS,FundinContext.BACKUP_MAX_CHARS);
                 return true;
             } catch (final IOException x) {
                 return false;

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bulwark.org.bulwarkwallet.utils.scanner;
+package fundin.org.fundinwallet.utils.scanner;
 
 import android.annotation.SuppressLint;
 import android.graphics.Rect;

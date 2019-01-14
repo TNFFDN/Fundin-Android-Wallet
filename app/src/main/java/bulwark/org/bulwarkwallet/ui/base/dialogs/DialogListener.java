@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.base.dialogs;
+package fundin.org.fundinwallet.ui.base.dialogs;
 
 /**
  * Created by mati on 19/12/16.

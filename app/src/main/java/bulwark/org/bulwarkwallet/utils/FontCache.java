@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.utils;
+package fundin.org.fundinwallet.utils;
 
 import android.content.Context;
 import android.graphics.Typeface;

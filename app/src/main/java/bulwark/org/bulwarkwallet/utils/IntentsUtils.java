@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.utils;
+package fundin.org.fundinwallet.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinContext;
 
 /**
  * Created by kaali on 7/10/17.
@@ -38,7 +38,7 @@ public class IntentsUtils {
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachments);
         }
 
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{BulwarkContext.REPORT_EMAIL});
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{FundinContext.REPORT_EMAIL});
         if (subject != null)
             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 //		ArrayList<CharSequence> str = new ArrayList<CharSequence>();

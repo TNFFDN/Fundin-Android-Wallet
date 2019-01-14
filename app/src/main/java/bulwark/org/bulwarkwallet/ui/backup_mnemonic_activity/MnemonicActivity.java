@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.backup_mnemonic_activity;
+package fundin.org.fundinwallet.ui.backup_mnemonic_activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,9 +17,9 @@ import com.google.android.flexbox.FlexboxLayout;
 import java.util.Arrays;
 import java.util.List;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.WalletActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.wallet_activity.WalletActivity;
 
 /**
  * Created by Neoperol on 7/17/17.
@@ -61,7 +61,7 @@ public class MnemonicActivity extends BaseActivity {
             });
         }
 
-        List<String> textArray = bulwarkModule.getMnemonic();
+        List<String> textArray = fundinModule.getMnemonic();
 
         txt_words = (FlexboxLayout) findViewById(R.id.securityWords);
 

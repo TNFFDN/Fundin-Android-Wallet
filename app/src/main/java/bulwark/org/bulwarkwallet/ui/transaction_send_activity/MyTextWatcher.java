@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.transaction_send_activity;
+package fundin.org.fundinwallet.ui.transaction_send_activity;
 
 import android.text.Editable;
 import android.text.TextWatcher;

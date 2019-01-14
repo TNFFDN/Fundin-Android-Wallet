@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.import_watch_only;
+package fundin.org.fundinwallet.ui.import_watch_only;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,17 +9,17 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import org.bulwarkj.wallet.DeterministicKeyChain;
+import org.fundinj.wallet.DeterministicKeyChain;
 
 import java.io.IOException;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.DialogListener;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTextDialog;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.DialogListener;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTextDialog;
+import fundin.org.fundinwallet.utils.DialogsUtil;
 
-import static bulwark.org.bulwarkwallet.utils.CrashReporter.appendSavedBackgroundTraces;
+import static fundin.org.fundinwallet.utils.CrashReporter.appendSavedBackgroundTraces;
 
 /**
  * Created by kaali on 8/30/17.
@@ -62,7 +62,7 @@ public class SettingsWatchOnly extends BaseActivity {
         boolean isBip32 = check_bip32.isChecked();
         if (xpub.length()>0){
             try {
-                bulwarkModule.watchOnlyMode(
+                fundinModule.watchOnlyMode(
                         xpub,
                         isBip32 ? DeterministicKeyChain.KeyChainType.BIP32: DeterministicKeyChain.KeyChainType.BIP44_BULWARK_ONLY
                 );

@@ -1,12 +1,12 @@
-package bulwark.org.bulwarkwallet.ui.qr_activity;
+package fundin.org.fundinwallet.ui.qr_activity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.utils.NavigationUtils;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.utils.NavigationUtils;
 
 /**
  * Created by kaali on 6/8/17.

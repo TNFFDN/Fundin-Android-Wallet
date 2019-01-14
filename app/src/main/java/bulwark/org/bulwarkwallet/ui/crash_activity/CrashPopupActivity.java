@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.crash_activity;
+package fundin.org.fundinwallet.ui.crash_activity;
 
 import android.content.Context;
 import android.net.Uri;
@@ -27,11 +27,11 @@ import java.io.Writer;
 import java.util.ArrayList;
 
 import global.utils.Io;
-import bulwark.org.bulwarkwallet.BulwarkApplication;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.utils.CrashReporter;
+import fundin.org.fundinwallet.FundinApplication;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.utils.CrashReporter;
 
-import static bulwark.org.bulwarkwallet.utils.AndroidUtils.shareText;
+import static fundin.org.fundinwallet.utils.AndroidUtils.shareText;
 
 /**
  * Created by kaali on 8/18/17.
@@ -41,7 +41,7 @@ public class CrashPopupActivity extends AppCompatActivity implements View.OnClic
 
     private Logger log = LoggerFactory.getLogger(CrashPopupActivity.class);
 
-    private String authorities = "bulwark.org.bulwarkwallet.myfileprovider";
+    private String authorities = "fundin.org.fundinwallet.myfileprovider";
 
     private EditText viewDescription;
     private CheckBox viewCollectDeviceInfo;
@@ -53,11 +53,11 @@ public class CrashPopupActivity extends AppCompatActivity implements View.OnClic
     private TextView txt_send;
     private TextView txt_cancel;
 
-    private BulwarkApplication bulwarkApplication;
+    private FundinApplication fundinApplication;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        bulwarkApplication = BulwarkApplication.getInstance();
+        fundinApplication = FundinApplication.getInstance();
         setTheme(R.style.AppTheme_Dialog);
         setContentView(R.layout.report_issue_activity_dialog);
         this.setFinishOnTouchOutside(false);
@@ -75,7 +75,7 @@ public class CrashPopupActivity extends AppCompatActivity implements View.OnClic
         txt_send.setOnClickListener(this);
         txt_cancel.setOnClickListener(this);
 
-        bulwarkApplication.getAppConf().saveShowReportScreenOnStart(false);
+        fundinApplication.getAppConf().saveShowReportScreenOnStart(false);
 
         super.onCreate(savedInstanceState);
     }
@@ -224,13 +224,13 @@ public class CrashPopupActivity extends AppCompatActivity implements View.OnClic
     }
 
     protected CharSequence subject(){
-        return "Crash report"+" "+ bulwarkApplication.getVersionName();
+        return "Crash report"+" "+ fundinApplication.getVersionName();
     }
 
     @Nullable
     protected CharSequence collectApplicationInfo() throws IOException{
         final StringBuilder applicationInfo = new StringBuilder();
-        CrashReporter.appendApplicationInfo(applicationInfo, bulwarkApplication);
+        CrashReporter.appendApplicationInfo(applicationInfo, fundinApplication);
         return applicationInfo;
     }
 
@@ -248,6 +248,6 @@ public class CrashPopupActivity extends AppCompatActivity implements View.OnClic
 
     @Nullable
     protected CharSequence collectWalletDump() throws IOException{
-        return bulwarkApplication.getModule().getWallet().toString(false,true,true,null);
+        return fundinApplication.getModule().getWallet().toString(false,true,true,null);
     }
 }

@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.utils;
+package fundin.org.fundinwallet.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,12 +23,12 @@ import java.net.SocketAddress;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import global.BwktrumGlobalData;
-import bwktrum.BwktrumPeerData;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
-import bulwark.org.bulwarkwallet.ui.address_add_activity.AddContactActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTextDialog;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
+import fdntrum.BwktrumPeerData;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinContext;
+import fundin.org.fundinwallet.ui.address_add_activity.AddContactActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTextDialog;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTwoButtonsDialog;
 
 /**
  * Created by kaali on 7/5/17.
@@ -92,7 +92,7 @@ public class DialogsUtil {
 
 
     public interface TrustedNodeDialogListener{
-        void onNodeSelected(BwktrumPeerData bwktrumPeerData);
+        void onNodeSelected(BwktrumPeerData fdntrumPeerData);
     }
 
     public static DialogBuilder buildtrustedNodeDialog(final Activity context, final TrustedNodeDialogListener trustedNodeDialogListener){
@@ -114,7 +114,7 @@ public class DialogsUtil {
                     final String host = editHost.getText().toString();
                     final String tcpPortStr = editTcp.getText().toString();
                     final String sslPortStr = editSsl.getText().toString();
-                    int tcpPort = BulwarkContext.NETWORK_PARAMETERS.getPort();
+                    int tcpPort = FundinContext.NETWORK_PARAMETERS.getPort();
                     if (host.equals(BwktrumGlobalData.KAALI_TESTNET_SERVER)){
                         tcpPort = 52543;
                     }

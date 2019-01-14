@@ -33,11 +33,11 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/valueBulwark"
+        android:id="@+id/valueFundin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="230 BWK"
+        android:text="230 FDN"
         android:textSize="16sp"
         />
 
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="0.0002 BWK"
+            android:text="0.0002 FDN"
             android:textSize="14sp"
             />
 

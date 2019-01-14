@@ -1,25 +1,25 @@
-package bulwark.org.bulwarkwallet.module;
+package fundin.org.fundinwallet.module;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import org.bulwarkj.core.Address;
-import org.bulwarkj.core.Coin;
-import org.bulwarkj.core.InsufficientMoneyException;
-import org.bulwarkj.core.Peer;
-import org.bulwarkj.core.ScriptException;
-import org.bulwarkj.core.Sha256Hash;
-import org.bulwarkj.core.Transaction;
-import org.bulwarkj.core.TransactionConfidence;
-import org.bulwarkj.core.TransactionInput;
-import org.bulwarkj.core.TransactionOutput;
-import org.bulwarkj.core.listeners.TransactionConfidenceEventListener;
-import org.bulwarkj.crypto.DeterministicKey;
-import org.bulwarkj.crypto.MnemonicException;
-import org.bulwarkj.script.Script;
-import org.bulwarkj.wallet.DeterministicKeyChain;
-import org.bulwarkj.wallet.SendRequest;
-import org.bulwarkj.wallet.Wallet;
-import org.bulwarkj.wallet.listeners.WalletCoinsReceivedEventListener;
+import org.fundinj.core.Address;
+import org.fundinj.core.Coin;
+import org.fundinj.core.InsufficientMoneyException;
+import org.fundinj.core.Peer;
+import org.fundinj.core.ScriptException;
+import org.fundinj.core.Sha256Hash;
+import org.fundinj.core.Transaction;
+import org.fundinj.core.TransactionConfidence;
+import org.fundinj.core.TransactionInput;
+import org.fundinj.core.TransactionOutput;
+import org.fundinj.core.listeners.TransactionConfidenceEventListener;
+import org.fundinj.crypto.DeterministicKey;
+import org.fundinj.crypto.MnemonicException;
+import org.fundinj.script.Script;
+import org.fundinj.wallet.DeterministicKeyChain;
+import org.fundinj.wallet.SendRequest;
+import org.fundinj.wallet.Wallet;
+import org.fundinj.wallet.listeners.WalletCoinsReceivedEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,14 +42,14 @@ import java.util.concurrent.TimeoutException;
 import chain.BlockchainManager;
 import global.ContextWrapper;
 import global.WalletConfiguration;
-import bwktrum.BwktrumPeergroup;
-import bulwark.org.bulwarkwallet.contacts.AddressLabel;
-import bulwark.org.bulwarkwallet.contacts.ContactsStore;
-import bulwark.org.bulwarkwallet.module.wallet.WalletBackupHelper;
-import bulwark.org.bulwarkwallet.rate.db.BulwarkRate;
-import bulwark.org.bulwarkwallet.rate.db.RateDb;
-import bulwark.org.bulwarkwallet.ui.transaction_send_activity.custom.inputs.InputWrapper;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.TransactionWrapper;
+import fdntrum.BwktrumPeergroup;
+import fundin.org.fundinwallet.contacts.AddressLabel;
+import fundin.org.fundinwallet.contacts.ContactsStore;
+import fundin.org.fundinwallet.module.wallet.WalletBackupHelper;
+import fundin.org.fundinwallet.rate.db.FundinRate;
+import fundin.org.fundinwallet.rate.db.RateDb;
+import fundin.org.fundinwallet.ui.transaction_send_activity.custom.inputs.InputWrapper;
+import fundin.org.fundinwallet.ui.wallet_activity.TransactionWrapper;
 import store.AddressBalance;
 import wallet.exceptions.InsufficientInputsException;
 import wallet.exceptions.TxNotFoundException;
@@ -59,9 +59,9 @@ import wallet.WalletManager;
  * Created by mati on 18/04/17.
  */
 
-public class BulwarkModuleImp implements BulwarkModule {
+public class FundinModuleImp implements FundinModule {
 
-    private static final Logger logger = LoggerFactory.getLogger(BulwarkModuleImp.class);
+    private static final Logger logger = LoggerFactory.getLogger(FundinModuleImp.class);
 
     private ContextWrapper context;
     private WalletConfiguration walletConfiguration;
@@ -75,7 +75,7 @@ public class BulwarkModuleImp implements BulwarkModule {
     private long availableBalance = 0;
     private BigDecimal pivInUsdHardcoded = new BigDecimal("1.5");
 
-    public BulwarkModuleImp(ContextWrapper contextWrapper, WalletConfiguration walletConfiguration,ContactsStore contactsStore,RateDb rateDb) {
+    public FundinModuleImp(ContextWrapper contextWrapper, WalletConfiguration walletConfiguration,ContactsStore contactsStore,RateDb rateDb) {
         this.context = contextWrapper;
         this.walletConfiguration = walletConfiguration;
         this.contactsStore = contactsStore;
@@ -237,7 +237,7 @@ public class BulwarkModuleImp implements BulwarkModule {
             for (TransactionInput input : transaction.getInputs()) {
                 unspent.add(input.getConnectedOutput());
             }
-            sendRequest.coinSelector = new bulwark.org.bulwarkwallet.module.wallet.DefaultCoinSelector(unspent);
+            sendRequest.coinSelector = new fundin.org.fundinwallet.module.wallet.DefaultCoinSelector(unspent);
         }
         sendRequest.signInputs = true;
         sendRequest.shuffleOutputs = false; // don't shuffle outputs to know the contact
@@ -270,7 +270,7 @@ public class BulwarkModuleImp implements BulwarkModule {
         sendRequest.feePerKb = fee;
         sendRequest.changeAddress = walletManager.newFreshReceiveAddress();
         walletManager.completeSend(sendRequest);
-        // if the fee is different to the custom fee and the tx size is lower than 1kb (1000 bytes in bulwark core)
+        // if the fee is different to the custom fee and the tx size is lower than 1kb (1000 bytes in fundin core)
         /*if(!sendRequest.tx.getFee().equals(fee) && sendRequest.tx.unsafeBitcoinSerialize().length<1000){
             // re acomodate outputs to include the selected fee
             List<TransactionOutput> oldOutputs = sendRequest.tx.getOutputs();
@@ -457,7 +457,7 @@ public class BulwarkModuleImp implements BulwarkModule {
         walletManager.removeTransactionConfidenceChange(transactionConfidenceEventListener);
     }
 
-    public BulwarkRate getRate(String coin) {
+    public FundinRate getRate(String coin) {
         return rateDb.getRate(coin);
     }
 
@@ -629,7 +629,7 @@ public class BulwarkModuleImp implements BulwarkModule {
     }
 
 
-    public void saveRate(BulwarkRate bulwarkRate){
-        rateDb.insertOrUpdateIfExist(bulwarkRate);
+    public void saveRate(FundinRate fundinRate){
+        rateDb.insertOrUpdateIfExist(fundinRate);
     }
 }

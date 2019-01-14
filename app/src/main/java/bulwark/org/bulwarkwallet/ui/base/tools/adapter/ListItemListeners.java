@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.base.tools.adapter;
+package fundin.org.fundinwallet.ui.base.tools.adapter;
 
 
 public interface ListItemListeners<M> {

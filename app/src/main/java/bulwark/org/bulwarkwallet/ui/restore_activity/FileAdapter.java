@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.restore_activity;
+package fundin.org.fundinwallet.ui.restore_activity;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.List;
 
-import bulwark.org.bulwarkwallet.R;
+import fundin.org.fundinwallet.R;
 
 public abstract class FileAdapter extends ArrayAdapter<File>
 {

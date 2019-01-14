@@ -7,7 +7,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="bulwark.org.bulwarkwallet.ui.transaction_detail_activity.FragmentTxDetail"
+        android:name="fundin.org.fundinwallet.ui.transaction_detail_activity.FragmentTxDetail"
         android:id="@+id/fragment_tx_detail"
         />
 

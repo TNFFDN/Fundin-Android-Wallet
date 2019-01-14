@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.wallet_activity;
+package fundin.org.fundinwallet.ui.wallet_activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.bulwarkj.core.Coin;
-import org.bulwarkj.utils.MonetaryFormat;
+import org.fundinj.core.Coin;
+import org.fundinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,17 +18,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.rate.db.BulwarkRate;
-import bulwark.org.bulwarkwallet.ui.base.BaseRecyclerFragment;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
-import bulwark.org.bulwarkwallet.ui.base.tools.adapter.ListItemListeners;
-import bulwark.org.bulwarkwallet.ui.transaction_detail_activity.TransactionDetailActivity;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.rate.db.FundinRate;
+import fundin.org.fundinwallet.ui.base.BaseRecyclerFragment;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerAdapter;
+import fundin.org.fundinwallet.ui.base.tools.adapter.BaseRecyclerViewHolder;
+import fundin.org.fundinwallet.ui.base.tools.adapter.ListItemListeners;
+import fundin.org.fundinwallet.ui.transaction_detail_activity.TransactionDetailActivity;
 
-import static bulwark.org.bulwarkwallet.ui.transaction_detail_activity.FragmentTxDetail.IS_DETAIL;
-import static bulwark.org.bulwarkwallet.ui.transaction_detail_activity.FragmentTxDetail.TX_WRAPPER;
-import static bulwark.org.bulwarkwallet.utils.TxUtils.getAddressOrContact;
+import static fundin.org.fundinwallet.ui.transaction_detail_activity.FragmentTxDetail.IS_DETAIL;
+import static fundin.org.fundinwallet.ui.transaction_detail_activity.FragmentTxDetail.TX_WRAPPER;
+import static fundin.org.fundinwallet.utils.TxUtils.getAddressOrContact;
 
 /**
  * Created by kaali on 6/29/17.
@@ -38,7 +38,7 @@ public class TransactionsFragmentBase extends BaseRecyclerFragment<TransactionWr
 
     private static final Logger logger = LoggerFactory.getLogger(TransactionsFragmentBase.class);
 
-    private BulwarkRate bulwarkRate;
+    private FundinRate fundinRate;
     private MonetaryFormat coinFormat = MonetaryFormat.BTC;
     private int scale = 3;
 
@@ -53,7 +53,7 @@ public class TransactionsFragmentBase extends BaseRecyclerFragment<TransactionWr
 
     @Override
     protected List<TransactionWrapper> onLoading() {
-        List<TransactionWrapper> list = bulwarkModule.listTx();
+        List<TransactionWrapper> list = fundinModule.listTx();
         Collections.sort(list, new Comparator<TransactionWrapper>(){
             public int compare(TransactionWrapper o1, TransactionWrapper o2){
                 if(o1.getTransaction().getUpdateTime().getTime() == o2.getTransaction().getUpdateTime().getTime())
@@ -90,11 +90,11 @@ public class TransactionsFragmentBase extends BaseRecyclerFragment<TransactionWr
                 }
 
                 String localCurrency = null;
-                if (bulwarkRate!=null) {
-                    localCurrency = bulwarkApplication.getCentralFormats().format(
-                                    new BigDecimal(data.getAmount().getValue() * bulwarkRate.getValue().doubleValue()).movePointLeft(8)
+                if (fundinRate!=null) {
+                    localCurrency = fundinApplication.getCentralFormats().format(
+                                    new BigDecimal(data.getAmount().getValue() * fundinRate.getValue().doubleValue()).movePointLeft(8)
                                     )
-                                    + " " + bulwarkRate.getCoin();
+                                    + " " + fundinRate.getCoin();
                     holder.amountLocal.setText(localCurrency);
                     holder.amountLocal.setVisibility(View.VISIBLE);
                 }else {
@@ -115,7 +115,7 @@ public class TransactionsFragmentBase extends BaseRecyclerFragment<TransactionWr
                     holder.imageView.setImageResource(R.drawable.ic_transaction_mining);
                     holder.amount.setTextColor(ContextCompat.getColor(context, R.color.green));
                 }
-                holder.title.setText(getAddressOrContact(bulwarkModule,data));
+                holder.title.setText(getAddressOrContact(fundinModule,data));
 
                 /*if (data.getOutputLabels()!=null && !data.getOutputLabels().isEmpty()){
                     AddressLabel contact = data.getOutputLabels().get(0);
@@ -125,10 +125,10 @@ public class TransactionsFragmentBase extends BaseRecyclerFragment<TransactionWr
                         else
                             holder.title.setText(contact.getAddresses().get(0));
                     }else {
-                        holder.title.setText(data.getTransaction().getOutput(0).getScriptPubKey().getToAddress(bulwarkModule.getConf().getNetworkParams()).toBase58());
+                        holder.title.setText(data.getTransaction().getOutput(0).getScriptPubKey().getToAddress(fundinModule.getConf().getNetworkParams()).toBase58());
                     }
                 }else {
-                    holder.title.setText(data.getTransaction().getOutput(0).getScriptPubKey().getToAddress(bulwarkModule.getConf().getNetworkParams()).toBase58());
+                    holder.title.setText(data.getTransaction().getOutput(0).getScriptPubKey().getToAddress(fundinModule.getConf().getNetworkParams()).toBase58());
                 }*/
                 String memo = data.getTransaction().getMemo();
                 holder.description.setText(memo!=null?memo:"No description");
@@ -156,7 +156,7 @@ public class TransactionsFragmentBase extends BaseRecyclerFragment<TransactionWr
     @Override
     public void onResume() {
         super.onResume();
-        bulwarkRate = bulwarkModule.getRate(bulwarkApplication.getAppConf().getSelectedRateCoin());
+        fundinRate = fundinModule.getRate(fundinApplication.getAppConf().getSelectedRateCoin());
     }
 
     /**

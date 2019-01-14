@@ -1,4 +1,4 @@
-package bulwark.org.bulwarkwallet.ui.settings_backup_activity;
+package fundin.org.fundinwallet.ui.settings_backup_activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,13 +19,13 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.module.BulwarkContext;
-import bulwark.org.bulwarkwallet.module.wallet.WalletBackupHelper;
-import bulwark.org.bulwarkwallet.ui.backup_mnemonic_activity.MnemonicActivity;
-import bulwark.org.bulwarkwallet.ui.base.BaseActivity;
-import bulwark.org.bulwarkwallet.ui.base.dialogs.SimpleTextDialog;
-import bulwark.org.bulwarkwallet.utils.DialogsUtil;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.module.FundinContext;
+import fundin.org.fundinwallet.module.wallet.WalletBackupHelper;
+import fundin.org.fundinwallet.ui.backup_mnemonic_activity.MnemonicActivity;
+import fundin.org.fundinwallet.ui.base.BaseActivity;
+import fundin.org.fundinwallet.ui.base.dialogs.SimpleTextDialog;
+import fundin.org.fundinwallet.utils.DialogsUtil;
 
 /**
  * Created by Neoperol on 5/18/17.
@@ -66,7 +66,7 @@ public class SettingsBackupActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                org.bulwarkj.core.Context.propagate(BulwarkContext.CONTEXT);
+                org.fundinj.core.Context.propagate(FundinContext.CONTEXT);
                 backup();
                 runOnUiThread(new Runnable() {
                     @Override
@@ -90,7 +90,7 @@ public class SettingsBackupActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case 0:
-                if (bulwarkModule.isWalletWatchOnly()){
+                if (fundinModule.isWalletWatchOnly()){
                     Toast.makeText(this,R.string.error_watch_only_mode,Toast.LENGTH_SHORT).show();
                     return true;
                 }
@@ -113,10 +113,10 @@ public class SettingsBackupActivity extends BaseActivity {
                 return;
             }
             File backupFile = new WalletBackupHelper().determineBackupFile(null);
-            boolean result = bulwarkModule.backupWallet(backupFile, firstPassword);
+            boolean result = fundinModule.backupWallet(backupFile, firstPassword);
 
             if (result){
-                bulwarkApplication.getAppConf().setHasBackup(true);
+                fundinApplication.getAppConf().setHasBackup(true);
                 showSuccedBackupDialog(backupFile.getAbsolutePath());
             }else {
                 backupRes = R.string.backup_fail;

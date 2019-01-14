@@ -1,14 +1,14 @@
-package bulwark.org.bulwarkwallet.ui.splash_activity;
+package fundin.org.fundinwallet.ui.splash_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.os.Handler;
-import bulwark.org.bulwarkwallet.BulwarkApplication;
-import bulwark.org.bulwarkwallet.R;
-import bulwark.org.bulwarkwallet.ui.start_activity.StartActivity;
-import bulwark.org.bulwarkwallet.ui.wallet_activity.WalletActivity;
+import fundin.org.fundinwallet.FundinApplication;
+import fundin.org.fundinwallet.R;
+import fundin.org.fundinwallet.ui.start_activity.StartActivity;
+import fundin.org.fundinwallet.ui.wallet_activity.WalletActivity;
 
 /**
  * Created by Neoperol on 6/13/17.
@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void jump() {
 
-        if (BulwarkApplication.getInstance().getAppConf().isAppInit()){
+        if (FundinApplication.getInstance().getAppConf().isAppInit()){
             Intent intent = new Intent(this, WalletActivity.class);
             startActivity(intent);
         }else {

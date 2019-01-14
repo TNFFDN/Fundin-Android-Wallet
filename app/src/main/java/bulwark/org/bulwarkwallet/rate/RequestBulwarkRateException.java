@@ -1,18 +1,18 @@
-package bulwark.org.bulwarkwallet.rate;
+package fundin.org.fundinwallet.rate;
 
 /**
  * Created by kaali on 7/5/17.
  */
-public class RequestBulwarkRateException extends Exception {
-    public RequestBulwarkRateException(String message) {
+public class RequestFundinRateException extends Exception {
+    public RequestFundinRateException(String message) {
         super(message);
     }
 
-    public RequestBulwarkRateException(String message, Throwable cause) {
+    public RequestFundinRateException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public RequestBulwarkRateException(Exception e) {
+    public RequestFundinRateException(Exception e) {
         super(e);
     }
 }
