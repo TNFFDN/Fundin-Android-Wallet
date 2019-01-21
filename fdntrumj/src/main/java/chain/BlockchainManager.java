@@ -42,7 +42,7 @@ import global.ContextWrapper;
 import global.WalletConfiguration;
 import wallet.WalletManager;
 
-import static global.FdntrumGlobalData.KAALI_TESTNET_SERVER;
+
 
 public class BlockchainManager {
 
@@ -285,21 +285,14 @@ public class BlockchainManager {
                             if (hasTrustedPeer) {
                                 LOG.info("trusted peer '" + trustedPeerHost + "'" + (connectTrustedPeerOnly ? " only" : ""));
                                 final InetSocketAddress addr;
-                                if (trustedPeerHost.equals(KAALI_TESTNET_SERVER) && !conf.isTest()){
-                                    addr = new InetSocketAddress(trustedPeerHost, 52543);
-                                }else {
-                                    addr = new InetSocketAddress(trustedPeerHost, conf.getNetworkParams().getPort());
-                                }
+
+                                addr = new InetSocketAddress(trustedPeerHost, conf.getNetworkParams().getPort());
 
                                 if (addr.getAddress() != null) {
                                     peers.add(addr);
                                     needsTrimPeersWorkaround = true;
                                 }
-                                /*if (conf.isTest()){
-                                    // add one more peer to validate tx
-                                    peers.add(new InetSocketAddress(KAALI_TESTNET_SERVER,6444));
-                                    needsTrimPeersWorkaround = false;
-                                }*/
+                                
                             }
 
                             if (!connectTrustedPeerOnly)

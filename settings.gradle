@@ -1,1 +1,1 @@
-include ':app', ':fundinj-core-0.14.3-12.1', ':fdntrumj'
+include ':app', ':fundinj-core-0.0.1', ':fdntrumj'

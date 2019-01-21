@@ -6,6 +6,6 @@ package fundin.org.fundinwallet;
 
 public class HardcodedConstants {
 
-    public static final String TESTNET_HOST = "192.168.0.10";
+    public static final String Mainnet_HOST = "66.42.62.142";
 
 }

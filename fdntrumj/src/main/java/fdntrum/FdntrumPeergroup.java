@@ -67,7 +67,7 @@ public class FdntrumPeergroup implements PeerListener, PeerDataListener {
     /** Whether the peer group was active. */
     private volatile boolean isActive;
     /** How many milliseconds to wait after receiving a pong before sending another ping. */
-    public static final long DEFAULT_PING_INTERVAL_MSEC = 2000;
+    public static final long DEFAULT_PING_INTERVAL_MSEC = 8000;
     private long pingIntervalMsec = DEFAULT_PING_INTERVAL_MSEC;
     /** Wallet manager */
     private WalletManager walletManager;

@@ -63,7 +63,7 @@ import static fundin.org.fundinwallet.utils.AndroidUtils.shareText;
  * Created by tnf on 1/14/19.
  */
 @ReportsCrashes(
-        mailTo = FundinContext.REPORT_EMAIL, // my email here
+        mailTo = info@fundin.xyz, // my email here
         mode = ReportingInteractionMode.TOAST,
         resToastText = R.string.crash_toast_text)
 public class FundinApplication extends Application implements ContextWrapper {

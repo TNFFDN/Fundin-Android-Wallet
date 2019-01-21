@@ -31,7 +31,7 @@ import fdntrum.messages.SubscribeAddressMsg;
 import fdntrum.messages.VersionMsg;
 
 /**
- * Created by tnf on 1/14/19. on 6/5/17.
+ * Created by tnf on 1/14/19.
  */
 
 public class ClientTest {
@@ -44,9 +44,9 @@ public class ClientTest {
         JSONObject jsonObject = versionMsg.toJson();
         jsonObject.put("id",1);
         // Send
-        final Socket socket = getFactory().createSocket(); //new Socket("localhost", 50001);
+        final Socket socket = getFactory().createSocket(); //new Socket("localhost", 7777);
         socket.setReuseAddress(true);
-        socket.connect(new InetSocketAddress("localhost", 50002));
+        socket.connect(new InetSocketAddress("localhost", 7777));
         System.out.println("socket connected");
         OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream());
         BufferedWriter bw = new BufferedWriter(osw);
@@ -91,7 +91,7 @@ public class ClientTest {
         JSONObject jsonObject = getBalanceMsg.toJson();
         jsonObject.put("id",2);
         // Send
-        final Socket socket = new Socket("localhost", 50001);
+        final Socket socket = new Socket("localhost", 7777);
         socket.setReuseAddress(true);
         System.out.println("socket connected");
         System.out.println("sending: "+jsonObject.toString()+"\n");
@@ -116,7 +116,7 @@ public class ClientTest {
     @Test
     public void getPeersTest() throws IOException, JSONException {
         // Send
-        final Socket socket = new Socket("localhost", 50001);
+        final Socket socket = new Socket("localhost", 7777);
         socket.setReuseAddress(true);
         System.out.println("socket connected");
 
@@ -138,25 +138,25 @@ public class ClientTest {
     @Test
     public void subscribeAddresTest() throws IOException, JSONException {
         // Send
-        final Socket socket = new Socket("localhost", 50001);
+        final Socket socket = new Socket("localhost", 7777);
         socket.setReuseAddress(true);
         System.out.println("socket connected");
 
-        SubscribeAddressMsg subscribeAddressMsg = new SubscribeAddressMsg("yChC1VQS5zET5pDxXgcc4bFye3Q9nurccG");
+        SubscribeAddressMsg subscribeAddressMsg = new SubscribeAddressMsg("fDgC1VQS5zET5pDxXgcc4bFye3Q9nurccG");
         subscribeAddressMsg.setId(4);
         sendAndWaitReceive(socket,subscribeAddressMsg.toJson());
     }
 
     @Test
     public void batchRequestTest() throws IOException, JSONException {
-        GetHistoryMsg getBalanceMsg1 = new GetHistoryMsg("yCRaSQvLd5a9VFFv9dzns2zNMJhWyymtAd");
+        GetHistoryMsg getBalanceMsg1 = new GetHistoryMsg("fDNaSQvLd5a9VFFv9dzns2zNMJhWyymtAd");
         getBalanceMsg1.setId(5);
-        GetHistoryMsg getBalanceMsg2 = new GetHistoryMsg("yCRaSQvLd5a9VFFv9dzns2zNMJhWyymtAd");
+        GetHistoryMsg getBalanceMsg2 = new GetHistoryMsg("fDNaSQvLd5a9VFFv9dzns2zNMJhWyymtAd");
         getBalanceMsg2.setId(6);
-        GetHistoryMsg getBalanceMsg3 = new GetHistoryMsg("yCRaSQvLd5a9VFFv9dzns2zNMJhWyymtAd");
+        GetHistoryMsg getBalanceMsg3 = new GetHistoryMsg("fDNaSQvLd5a9VFFv9dzns2zNMJhWyymtAd");
         getBalanceMsg3.setId(7);
         // Send
-        final Socket socket1 = new Socket("localhost", 50001);
+        final Socket socket1 = new Socket("localhost", 7777);
         socket1.setReuseAddress(true);
         System.out.println("socket1 connected");
 

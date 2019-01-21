@@ -18,28 +18,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".FundinApplication">
-        <activity android:name=".ui.splash_activity.SplashActivity"  android:screenOrientation="portrait">
 
-        </activity>
 
-        <activity android:name=".ui.initial.InitialActivity"
-            android:noHistory="true"
-            >
+
+        <activity android:name=".ui.initial.InitialActivity" android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.wallet_activity.WalletActivity"  android:screenOrientation="portrait"
-            android:launchMode="singleInstance"
-            >
-
-        </activity>
-
-        <activity android:name=".ui.start_activity.StartActivity"  android:screenOrientation="portrait">
-
-        </activity>
+        <activity
+            android:name=".ui.wallet_activity.WalletActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance" />
+        <activity android:name=".ui.start_activity.StartActivity"  android:screenOrientation="portrait" />
         <activity android:name=".ui.backup_mnemonic_activity.MnemonicActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.words_restore_activity.RestoreWordsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.contacts_activity.ContactsActivity"  android:screenOrientation="portrait"/>
@@ -77,10 +70,8 @@
         <activity android:name=".ui.transaction_send_activity.custom.inputs.InputsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.transaction_send_activity.SendTxDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.transaction_request_activity.RequestActivity"  android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.tutorial_activity.TutorialActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.qr_activity.QrActivity"/>
         <activity android:name=".utils.scanner.ScanActivity"/>
-        <activity android:name=".ui.donate.DonateActivity" />
         <activity android:name=".ui.export_account.ExportKeyActivity"/>
         <activity android:name=".ui.import_watch_only.SettingsWatchOnly"/>
 

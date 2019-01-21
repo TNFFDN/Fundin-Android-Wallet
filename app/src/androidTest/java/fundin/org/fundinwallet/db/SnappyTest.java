@@ -14,7 +14,7 @@ import store.CantInsertAddressException;
 
 
 /**
- * Created by tnf on 1/14/19. on 6/15/17.
+ * Created by tnf on 1/14/19.
  */
 
 public class SnappyTest {
